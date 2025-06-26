@@ -3,8 +3,12 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "dc": "docker-compose down && docker-compose up -d",
+        "php": "docker-compose exec php bash",
+        "queue": "docker-compose exec php bash -c 'php artisan queue:work'",
+        "fresh-seed": "docker-compose exec php php artisan migrate:fresh --seed"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
