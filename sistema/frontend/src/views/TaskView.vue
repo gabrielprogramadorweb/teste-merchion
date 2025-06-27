@@ -1,31 +1,70 @@
 <template>
-    <div class="max-w-4xl mx-auto p-4">
-        <h1 class="text-xl font-bold mb-4">Minhas Tarefas</h1>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4 text-primary">Minhas Tarefas</h1>
 
-        <form @submit.prevent="salvarTask" class="mb-6">
-            <input v-model="form.titulo" placeholder="Título" class="border p-2 w-full mb-2" />
-            <textarea v-model="form.descricao" placeholder="Descrição" class="border p-2 w-full mb-2"></textarea>
-            <select v-model="form.status" class="border p-2 w-full mb-2">
-                <option value="pendente">Pendente</option>
-                <option value="em_progresso">Em Progresso</option>
-                <option value="completo">Completo</option>
-            </select>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Salvar</button>
-        </form>
+                <!-- Formulário -->
+                <form @submit.prevent="salvarTask" class="card shadow-sm p-4 mb-5">
+                    <div class="mb-3">
+                        <input
+                            v-model="form.titulo"
+                            type="text"
+                            placeholder="Título"
+                            class="form-control"
+                        />
+                    </div>
 
-        <div v-if="tasks.length === 0">Nenhuma tarefa encontrada.</div>
-        <ul>
-            <li v-for="task in tasks" :key="task.id" class="border-b py-2 flex justify-between">
-                <div>
-                    <strong>{{ task.titulo }}</strong> - <em>{{ task.status }}</em>
-                    <p>{{ task.descricao }}</p>
+                    <div class="mb-3">
+            <textarea
+                v-model="form.descricao"
+                placeholder="Descrição"
+                rows="3"
+                class="form-control"
+            ></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <select v-model="form.status" class="form-select">
+                            <option value="pendente">🕓 Pendente</option>
+                            <option value="em_progresso">⏳ Em Progresso</option>
+                            <option value="completo">✅ Completo</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        {{ form.id ? 'Atualizar Tarefa' : 'Salvar Tarefa' }}
+                    </button>
+                </form>
+
+                <!-- Lista -->
+                <div v-if="tasks.length === 0" class="alert alert-info text-center">
+                    Nenhuma tarefa encontrada.
                 </div>
-                <div class="space-x-2">
-                    <button class="text-blue-600" @click="editarTask(task)">Editar</button>
-                    <button class="text-red-600" @click="excluirTask(task.id!)">Excluir</button>
-                </div>
-            </li>
-        </ul>
+
+                <ul class="list-group shadow-sm">
+                    <li
+                        v-for="task in tasks"
+                        :key="task.id"
+                        class="list-group-item d-flex justify-content-between align-items-start"
+                    >
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold text-primary">{{ task.titulo }}</div>
+                            <small class="text-muted fst-italic">{{ formatarStatus(task.status) }}</small>
+                            <p class="mb-0">{{ task.descricao }}</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-end">
+                            <button @click="editarTask(task)" class="btn btn-sm btn-outline-primary mb-1">
+                                ✏️ Editar
+                            </button>
+                            <button @click="excluirTask(task.id!)" class="btn btn-sm btn-outline-danger">
+                                🗑️ Excluir
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -66,9 +105,14 @@ const excluirTask = async (id: number) => {
     await carregarTasks();
 };
 
+const formatarStatus = (status: string): string => {
+    const mapa: Record<string, string> = {
+        pendente: '🕓 Pendente',
+        em_progresso: '⏳ Em Progresso',
+        completo: '✅ Completo'
+    };
+    return mapa[status] ?? status;
+};
+
 onMounted(() => carregarTasks());
 </script>
-
-<style scoped>
-/* Adicione estilos se quiser */
-</style>

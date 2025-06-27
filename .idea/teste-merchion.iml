@@ -118,6 +118,10 @@
       <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/inertiajs/inertia-laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/laravel/breeze" />
+      <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/sistema/vendor/tightenco/ziggy" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
