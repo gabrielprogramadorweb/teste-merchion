@@ -35,6 +35,8 @@
             $data = $request->validate([
                 'titulo' => 'required|string|max:255',
                 'descricao' => 'nullable|string',
+                'status' => 'required|in:pendente,em_progresso,completo',
+                'prioridade' => 'nullable|string'
             ]);
 
             $data['user_id'] = auth()->id();
@@ -43,6 +45,7 @@
 
             return response()->json($task, 201);
         }
+
         public function show($id, Request $request)
         {
             $task = Task::where('id', $id)

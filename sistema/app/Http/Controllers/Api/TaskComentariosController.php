@@ -10,7 +10,7 @@
     {
         public function index()
         {
-            return TaskComentarios::orderBy('created_at', 'desc')->get();
+            return TaskComentarios::with('user')->orderBy('created_at', 'desc')->get();
         }
 
         public function store(Request $request)
@@ -26,14 +26,16 @@
                 'user_id' => auth()->id(),
             ]);
 
-            return response()->json($comentario, 201);
+            return response()->json($comentario->load('user'), 201);
         }
 
         public function getComentariosPorTask($id)
         {
-            $comentarios = TaskComentarios::where('task_id', $id)->get();
+            $comentarios = TaskComentarios::with('user')
+                ->where('task_id', $id)
+                ->orderBy('created_at', 'asc')
+                ->get();
+
             return response()->json($comentarios);
         }
-
-
     }
