@@ -32,7 +32,9 @@
 nvm alias default 18
 node -v
 `
-.env:
+
+
+#### .env:
 ```
 APP_NAME=Laravel
 APP_ENV=local
