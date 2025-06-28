@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import TaskView from '@/views/Task/TaskView.vue'
-import LoginView from '@/views/Auth/Login/LoginView.vue'
-import RegisterView from '@/views/Auth/Register/RegisterView.vue'
-import DashboardView from '@/views/Dashboard/DashboardView.vue'
-import ProfileEdit from '@/views/Profile/ProfileEdit.vue';
+import TaskView from '@/pages/Task/TaskView.vue'
+import LoginView from '@/pages/Auth/Login/LoginView.vue'
+import RegisterView from '@/pages/Auth/Register/RegisterView.vue'
+import DashboardView from '@/pages/Dashboard/DashboardView.vue'
+import ProfileEdit from '@/pages/Profile/ProfileEdit.vue';
 
 const routes = [
     { path: '/', name: 'Dashboard', component: DashboardView },
