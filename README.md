@@ -1,4 +1,5 @@
 # FlowTask
+### Laravel 12, Vue.js 3.5, Bootstrap 5.3 
 
 #### . Clone projeto  
 `git clone git@github.com:gabrielprogramadorweb/teste-merchion.git`
