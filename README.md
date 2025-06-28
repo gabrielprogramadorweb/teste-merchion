@@ -1,15 +1,15 @@
-# Docker Laravel
+# FlowTask
 
-#### . Clone project  
-`git clone https://github.com/gabrielprogramadorweb/laravel9-docker.git`
+#### . Clone projeto  
+`git clone git@github.com:gabrielprogramadorweb/teste-merchion.git`
 
-#### . Navigate in project directory  
-`cd laravel9-docker`
+#### . Navegar pasta sistema  
+`cd sistema`
 
-#### . Create .env file
+#### . Criar .env
 `cp .env.example .env`  
 
-#### . Start everything
+#### . Subir container
 `docker-compose up -d --build`  
 
 #### Composer
@@ -18,17 +18,20 @@
 ###
 `composer install`
 
-#### . Generate key for Laravel application
+#### . Gerar key da aplicação
 `php artisan key:generate`  
 
+#### . Subir frontend Vue.js no diretório /sistema/frontend
+`npm install`
+`npm run dev`
 
 .env:
 ```
 APP_NAME=Laravel
 APP_ENV=local
-APP_KEY=
+APP_KEY=base64:HKKDGYubRU2L61oVLJUdoHOBI80nSFgOHtHMsQAKWes=
 APP_DEBUG=true
-APP_URL=http://localhost
+APP_URL=http://localhost:8080
 
 LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
@@ -37,8 +40,8 @@ LOG_LEVEL=debug
 DB_CONNECTION=mysql
 DB_HOST=setup-mysql
 DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=user
+DB_DATABASE=flowtask
+DB_USERNAME=root
 DB_PASSWORD=password
 
 BROADCAST_DRIVER=log
@@ -53,6 +56,9 @@ MEMCACHED_HOST=127.0.0.1
 REDIS_HOST=setup-redis
 REDIS_PASSWORD=null
 REDIS_PORT=6379
+
+SESSION_DOMAIN=localhost
+SANCTUM_STATEFUL_DOMAINS=localhost:5173
 
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
