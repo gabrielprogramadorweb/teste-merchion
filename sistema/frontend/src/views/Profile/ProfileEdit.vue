@@ -13,7 +13,6 @@
                     <label for="floatingName">Nome completo</label>
                 </div>
 
-                <!-- Botão salvar -->
                 <div class="d-grid">
                     <button type="submit"class="btn btn-primary btn-lg rounded-pill fw-semibold" :disabled="loading">
                         <i class="bi bi-check-circle me-2"></i>
@@ -22,9 +21,6 @@
                 </div>
             </form>
 
-            <div v-if="success" class="alert alert-success mt-4 text-center rounded-pill">
-                Perfil atualizado com sucesso!
-            </div>
         </div>
     </div>
 </template>

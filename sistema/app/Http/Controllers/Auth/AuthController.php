@@ -6,6 +6,7 @@
     use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Session;
 
     class AuthController extends Controller
     {
@@ -20,16 +21,20 @@
             $user = Auth::user();
             $token = $user->createToken('api_token')->plainTextToken;
 
+            Session::put('id', $user->id);
+            Session::put('name', $user->name);
+            Session::put('email', $user->email);
+
             return response()->json([
                 'message' => 'Login efetuado com sucesso',
                 'token' => $token,
                 'user' => [
                     'id' => $user->id,
                     'name' => $user->name,
+                    'email' => $user->email,
                 ],
             ]);
         }
-
         public function logout(Request $request)
         {
             $request->user()->currentAccessToken()->delete();
