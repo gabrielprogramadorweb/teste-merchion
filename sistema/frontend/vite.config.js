@@ -3,15 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { webcrypto } from 'crypto'
 
-globalThis.crypto = webcrypto
+if (!globalThis.crypto) {
+    globalThis.crypto = webcrypto
+}
 
 export default defineConfig({
     plugins: [vue()],
     define: {
         'process.env': {}
-    },
-    optimizeDeps: {
-        include: ['crypto']
     },
     server: {
         proxy: {
