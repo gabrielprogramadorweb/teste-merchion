@@ -1,20 +1,7 @@
-import axios from 'axios';
+import api from './api';
 import { Task } from '../models/Task';
 
-const API_URL = 'http://localhost:8080/api';
-
-export const getTasks = () => {
-    return axios.get<Task[]>(`${API_URL}/tasks`, { withCredentials: true });
-};
-
-export const createTask = (task: Task) => {
-    return axios.post(`${API_URL}/tasks`, task, { withCredentials: true });
-};
-
-export const updateTask = (task: Task) => {
-    return axios.put(`${API_URL}/tasks/${task.id}`, task, { withCredentials: true });
-};
-
-export const deleteTask = (id: number) => {
-    return axios.delete(`${API_URL}/tasks/${id}`, { withCredentials: true });
-};
+export const getTasks = () => api.get<Task[]>('/tasks');
+export const createTask = (task: Task) => api.post('/tasks', task);
+export const updateTask = (task: Task) => api.put(`/tasks/${task.id}`, task);
+export const deleteTask = (id: number) => api.delete(`/tasks/${id}`);

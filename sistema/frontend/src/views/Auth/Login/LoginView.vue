@@ -1,7 +1,7 @@
 <template>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
-            <h2 class="text-center text-primary mb-4">Entrar no Trampix</h2>
+            <h2 class="text-center text-primary mb-4">Entrar no FlowTask</h2>
 
             <form @submit.prevent="login">
                 <!-- Email -->
@@ -13,14 +13,10 @@
                 <!-- Senha -->
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Senha</label>
-                    <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control" id="password" required />
-                    <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2"
-                        @click="showPassword = !showPassword"
-                    >
-                        <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-                    </button>
+                    <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control pe-4" id="password" required />
+                    <span class="position-absolute" style="top: 38px; right: 12px; cursor: pointer; z-index: 10;" @click="showPassword = !showPassword">
+            <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size: 1.1rem; color: #6c757d;"></i>
+          </span>
                 </div>
 
                 <!-- Botões -->
@@ -32,6 +28,7 @@
         </div>
     </div>
 </template>
+
 
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -47,15 +44,34 @@ const showPassword = ref(false)
 
 const login = async () => {
     try {
-        await axios.get('/sanctum/csrf-cookie')
-        await axios.post('/api/login', {
+        await axios.get('http://localhost:8080/sanctum/csrf-cookie', {
+            withCredentials: true
+        });
+
+        const response = await axios.post('http://localhost:8080/api/login', {
             email: email.value,
             password: password.value
-        })
-        router.push('/')
+        }, {
+            withCredentials: true
+        });
+
+        const token = response.data.token;
+
+        const userData = {
+            id: response.data.user.id,
+            name: response.data.user.name
+        };
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        router.push('/').then(() => {
+            window.location.reload();
+        });
+
     } catch (error: any) {
-        alert('Erro ao fazer login: ' + (error?.response?.data?.message || 'Erro desconhecido'))
+        alert('Erro ao fazer login: ' + (error?.response?.data?.message || 'Erro desconhecido'));
     }
-}
+};
 
 </script>

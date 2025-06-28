@@ -5,6 +5,15 @@
 
     class TaskComentarios extends Model
     {
+
+        protected $table = 'task_comentarios';
+
+        protected $fillable = [
+            'task_id',
+            'user_id',
+            'comentario',
+        ];
+
         public function task()
         {
             return $this->belongsTo(Task::class);

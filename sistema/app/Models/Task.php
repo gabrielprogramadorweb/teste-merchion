@@ -13,7 +13,6 @@ class Task extends Model
         return $this->belongsToMany(Tag::class, 'task_tag');
     }
 
-    // Relacionamento com comentários
     public function comments()
     {
         return $this->hasMany(TaskComentarios::class);

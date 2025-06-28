@@ -5,6 +5,7 @@
     use App\Http\Controllers\Controller;
     use App\Models\User;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Validation\ValidationException;
 
@@ -12,22 +13,22 @@
     {
         public function login(Request $request)
         {
-            $request->validate([
-                'email' => ['required', 'email'],
-                'password' => ['required'],
-            ]);
+            $credentials = $request->only('email', 'password');
 
-            $user = User::where('email', $request->email)->first();
-
-            if (! $user || ! Hash::check($request->password, $user->password)) {
-                throw ValidationException::withMessages([
-                    'email' => ['Credenciais inválidas.'],
-                ]);
+            if (!Auth::attempt($credentials)) {
+                return response()->json(['message' => 'Credenciais inválidas'], 401);
             }
 
+            $user = Auth::user();
+            $token = $user->createToken('api_token')->plainTextToken;
+
             return response()->json([
-                'token' => $user->createToken('token')->plainTextToken,
-                'user' => $user,
+                'message' => 'Login efetuado com sucesso',
+                'token' => $token,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                ],
             ]);
         }
 
