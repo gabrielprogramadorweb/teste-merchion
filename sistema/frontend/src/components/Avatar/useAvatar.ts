@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-export function useAvatarPreview(emit: (event: 'update:avatar', value: Blob) => void) {
+export function useAvatar(emit: (event: 'update:avatar', value: Blob) => void) {
     const image = ref<string | null>(null);
     const preview = ref<string | null>(null);
     const showModal = ref(false);

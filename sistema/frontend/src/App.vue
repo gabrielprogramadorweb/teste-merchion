@@ -1,18 +1,18 @@
 <template>
     <div>
         <NavBar class="fixed"/>
-        <router-view />
+        <router-view style="margin-top:70px;"/>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import NavBar from '@/components/NavBar/NavBar.vue'
+import NavBarView from '@/components/NavBar/NavBarView.vue'
 
 export default defineComponent({
     name: 'App',
     components: {
-        NavBar
+        NavBar: NavBarView
     }
 })
 </script>
