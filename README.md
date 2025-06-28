@@ -1,5 +1,5 @@
 # FlowTask
-### Laravel 12, Vue.js 3.5, Bootstrap 5.3 
+### Laravel 12, Vue.js 3.5, Bootstrap 5.3
 
 #### . Clone projeto  
 `git clone git@github.com:gabrielprogramadorweb/teste-merchion.git`
@@ -26,6 +26,12 @@
 `npm install`
 `npm run dev`
 
+
+#### . Versão Node.js v18
+`nvm use 18
+nvm alias default 18
+node -v
+`
 .env:
 ```
 APP_NAME=Laravel
