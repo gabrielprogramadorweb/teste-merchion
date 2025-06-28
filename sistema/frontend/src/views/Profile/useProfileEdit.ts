@@ -21,6 +21,9 @@ export function useProfileEdit() {
         try {
             await updateUserProfile(form);
             success.value = true;
+            setTimeout(() => {
+                window.location.reload();
+            }, 4000);
         } catch (e) {
             console.error('Erro ao atualizar perfil', e);
         } finally {
