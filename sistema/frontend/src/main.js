@@ -11,6 +11,7 @@ import  '../public/css/cropper.css';
 import  '../public/js/cropper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import '../public/css/main.css';
 import * as bootstrap from 'bootstrap';
 const app = createApp(App);
 const pinia = createPinia();
