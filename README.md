@@ -2,20 +2,30 @@
 ### Laravel 12, Vue.js 3.5, Bootstrap 5.3
 
 #### . Clone projeto  
-`git clone git@github.com:gabrielprogramadorweb/teste-merchion.git`
+```
+git clone git@github.com:gabrielprogramadorweb/teste-merchion.git
+```
 
 #### . Navegar pasta sistema  
-`cd sistema`
+```
+cd sistema
+```
 
 #### . Criar .env
-`cp .env.example .env`  
+```
+cp .env.example .env
+```  
 
 #### . Subir container
-`docker-compose up -d --build`  
+```
+docker-compose up -d --build
+```
 
 #### Composer
 
-` docker compose exec php bash`
+```
+docker compose exec php bash
+```
 ###
 `composer install`
 
@@ -28,10 +38,14 @@
 
 
 #### . Versão Node.js v18
-`nvm use 18
+```
+nvm use 18
 nvm alias default 18
+```
+#### Node -version
+```
 node -v
-`
+```
 
 
 #### .env:
