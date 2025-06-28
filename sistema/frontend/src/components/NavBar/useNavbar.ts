@@ -23,14 +23,18 @@ export function setupNavBar() {
         }
     }
 
+
     const logout = async () => {
         try {
-            await axios.post('/logout', {}, { withCredentials: true });
+            await web.post('/logout');
         } catch (error) {
             console.warn('Erro ao fazer logout (ignorado):', error);
         }
 
         try {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+
             await router.push('/login');
             window.location.reload();
         } catch (e) {
