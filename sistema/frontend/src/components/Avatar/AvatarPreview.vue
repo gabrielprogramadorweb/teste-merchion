@@ -33,7 +33,7 @@
 import { Cropper } from 'vue-advanced-cropper';
 import { computed } from 'vue';
 import 'vue-advanced-cropper/dist/style.css';
-import { useAvatarPreview } from './useAvatarPreview';
+import { useAvatar } from './useAvatar';
 
 const props = defineProps<{
     initialUrl?: string;
@@ -51,7 +51,7 @@ const {
     onFileChange,
     cropImage,
     closeModal
-} = useAvatarPreview(emit);
+} = useAvatar(emit);
 
 const defaultAvatar = '/images/avatar-default.png';
 
