@@ -1,5 +1,6 @@
 <?php
 
+    use App\Http\Controllers\Api\ProfileController;
     use App\Http\Controllers\Api\TaskComentariosController;
     use App\Http\Controllers\Api\TaskController;
     use App\Http\Controllers\Auth\AuthController;
@@ -33,6 +34,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // TaskComeentarios
     Route::get('/comentarios', [TaskComentariosController::class, 'index']);
     Route::post('/comentarios', [TaskComentariosController::class, 'store']);
+
+    // Profile
+    Route::get('/user', [ProfileController::class, 'edit']);
+    Route::post('/perfil/editar', [ProfileController::class, 'update']);
+    Route::delete('/perfil/deletar', [ProfileController::class, 'destroy']);
+
 });
 
 

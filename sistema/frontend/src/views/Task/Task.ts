@@ -1,8 +1,8 @@
 import { ref } from 'vue';
-import { Task } from '../../models/Task';
-import { Comentario } from '../../models/Comentario';
-import * as taskService from '../../services/taskService';
-import * as comentarioService from '../../services/comentarioService';
+import { Task } from '@/models/Task';
+import { Comentario } from '@/models/Comentario';
+import * as taskService from '@/services/taskService';
+import * as comentarioService from '@/services/comentarioService';
 import * as bootstrap from 'bootstrap';
 
 export const tasks = ref<Task[]>([]);

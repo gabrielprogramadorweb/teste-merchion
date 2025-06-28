@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './api';
 
 export function getComentariosPorTask(taskId: number) {
     return api.get(`/comentarios/task/${taskId}`);

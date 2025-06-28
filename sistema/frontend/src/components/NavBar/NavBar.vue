@@ -14,13 +14,13 @@
 
                     <div class="dropdown">
                         <button class="btn btn-dark border-0 d-flex align-items-center gap-2 fw-semibold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://i.pravatar.cc/32" class="rounded-circle border border-light-subtle" width="32" height="32" alt="Avatar" />
+                            <img :src="userAvatar || 'https://i.pravatar.cc/32'" class="rounded-circle border border-light-subtle" width="32" height="32" alt="Avatar" />
                             <span class="text-light">{{ userName }}</span>
                             <i class="bi bi-caret-down-fill text-light small"></i>
                         </button>
 
                         <ul class="dropdown-menu dropdown-menu-end mt-2 shadow-sm" aria-labelledby="userDropdown">
-                            <li><router-link class="dropdown-item" to="/profile"><i class="bi bi-person-gear me-2"></i> Editar Perfil</router-link></li>
+                            <li><router-link class="dropdown-item" to="/perfil/editar"><i class="bi bi-person-gear me-2"></i> Editar Perfil</router-link></li>
                             <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item text-danger" href="#" @click.prevent="logout"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
                         </ul>
@@ -32,13 +32,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { setupNavBar } from './useNavbar.ts';
+import { onMounted, ref } from 'vue';
+import { setupNavBar } from './useNavbar';
 
-const { userName, logout, carregarUsuario } = setupNavBar();
+const { userName, userAvatar, usuario, logout, carregarUsuario } = setupNavBar();
+
+
 
 onMounted(() => {
     carregarUsuario();
+
+    if (usuario.value?.avatar) {
+        userAvatar.value = `/storage/${usuario.value.avatar}`;
+    }
 
     const dropdownEl = document.querySelector('[data-bs-toggle="dropdown"]');
     if (dropdownEl && window.bootstrap) {
@@ -46,4 +52,5 @@ onMounted(() => {
     }
 });
 </script>
+
 

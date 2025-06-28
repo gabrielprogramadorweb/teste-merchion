@@ -1,5 +1,5 @@
 import api from './api';
-import { Task } from '../models/Task';
+import { Task } from '@/models/Task';
 
 export const getTasks = () => api.get<Task[]>('/tasks');
 export const createTask = (task: Task) => api.post('/tasks', task);
