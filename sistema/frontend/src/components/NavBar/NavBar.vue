@@ -1,6 +1,6 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-dark px-4 py-3 shadow-sm border-bottom border-secondary-subtle">
-        <div class="container-fluid d-flex align-items-center justify-between">
+    <nav class="navbar navbar-expand-lg bg-dark px-4 py-3 shadow-sm border-bottom border-secondary-subtle fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-between">
             <router-link class="navbar-brand d-flex align-items-center text-info fw-bold fs-5" to="/"><i class="bi bi-kanban-fill fs-4 me-2 text-primary"></i> FlowTask</router-link>
 
             <div class="d-flex align-items-center gap-3">
@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { setupNavBar } from './Navbar.ts';
+import { setupNavBar } from './useNavbar.ts';
 
 const { userName, logout, carregarUsuario } = setupNavBar();
 

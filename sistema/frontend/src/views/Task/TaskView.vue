@@ -1,6 +1,6 @@
 <template>
-    <div class="container py-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="container" style="margin-top:150px;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="text-primary fw-semibold fs-4">Minhas Tarefas</h2>
             <button class="btn btn-success btn-sm px-3 py-2" @click="abrirModal">
                 <i class="bi bi-plus-lg me-1"></i> Criar
