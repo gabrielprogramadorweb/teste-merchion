@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div style="background-color:#111827">
         <NavBar class="fixed"/>
-        <router-view style="margin-top:70px;"/>
+        <router-view/>
     </div>
 </template>
 
