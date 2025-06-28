@@ -27,14 +27,20 @@ docker-compose up -d --build
 docker compose exec php bash
 ```
 ###
-`composer install`
+```
+composer install
+```
 
 #### . Gerar key da aplicação
-`php artisan key:generate`  
+```
+php artisan key:generate
+```
 
 #### . Subir frontend Vue.js no diretório /sistema/frontend
-`npm install`
-`npm run dev`
+```
+npm install
+npm run dev
+```
 
 
 #### . Versão Node.js v18
@@ -46,7 +52,6 @@ nvm alias default 18
 ```
 node -v
 ```
-
 
 #### .env:
 ```
