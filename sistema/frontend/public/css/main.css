@@ -1,3 +1,20 @@
 body {
     background-color: #111827 !important;
 }
+.custom-dropdown {
+    background-color: #1F2937 !important;
+    color: #fff;
+    min-width: 220px;
+    border-radius: 8px;
+}
+
+.custom-dropdown-item {
+    color: #cbd5e1 !important;
+    transition: background-color 0.2s;
+}
+
+.custom-dropdown-item:hover {
+    background-color: #374151 !important;
+
+    color: #ffffff !important;
+}

@@ -10,19 +10,28 @@
                 </template>
 
                 <template v-else>
-                    <router-link to="/tasks" class="btn btn-outline-info fw-semibold px-3 py-2 d-flex align-items-center"><i class="bi bi-list-check me-2"></i> Minhas Tarefas</router-link>
-
+                    <router-link to="/tasks" class="btn btn-outline-info fw-semibold px-3 py-2 d-flex align-items-center"><i class="bi bi-list-check me-2" style="height:28px;"></i>
+                        Minhas Tarefas
+                    </router-link>
                     <div class="dropdown">
-                        <button class="btn btn-dark border-0 d-flex align-items-center gap-2 fw-semibold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img   :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle border border-light-subtle" width="32" height="32" alt="Avatar" />
+                        <button class="btn btn-transparent d-flex align-items-center gap-2 fw-semibold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border:1px solid #0dc9ee">
+                            <img :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle" width="32" height="32" alt="Avatar" style="border:1px solid #0dc9ee" />
                             <span class="text-light">{{ userName }}</span>
                             <i class="bi bi-caret-down-fill text-light small"></i>
                         </button>
 
-                        <ul class="dropdown-menu dropdown-menu-end mt-2 shadow-sm" aria-labelledby="userDropdown">
-                            <li><router-link class="dropdown-item" to="/perfil/editar"><i class="bi bi-person-gear me-2"></i> Editar Perfil</router-link></li>
+                        <ul class="dropdown-menu custom-dropdown mt-2 shadow" aria-labelledby="userDropdown">
+                            <li>
+                                <router-link class="dropdown-item custom-dropdown-item" to="/perfil/editar">
+                                    <i class="bi bi-person-gear me-2"></i> Editar Perfil
+                                </router-link>
+                            </li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item text-danger" href="#" @click.prevent="logout"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                            <li>
+                                <a class="dropdown-item custom-dropdown-item text-danger" href="#" @click.prevent="logout">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Sair
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </template>
@@ -36,8 +45,6 @@ import { onMounted, ref } from 'vue';
 import { setupNavBar } from './useNavbar';
 
 const { userName, userAvatar, usuario, logout, carregarUsuario } = setupNavBar();
-
-
 
 onMounted(() => {
     carregarUsuario();
