@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "FlowTask API",
+    "_postman_id": "flowtask-api-collection-v2",
+    "description": "Coleção para testar endpoints da API FlowTask com pastas organizadas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Registrar",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teste\",\n  \"email\": \"teste@flowtask.com\",\n  \"password\": \"12345678\",\n  \"password_confirmation\": \"12345678\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/register", "host": ["{{base_url}}"], "path": ["api", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"teste@flowtask.com\",\n  \"password\": \"12345678\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/login", "host": ["{{base_url}}"], "path": ["api", "login"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/logout", "host": ["{{base_url}}"], "path": ["api", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuário",
+      "item": [
+        {
+          "name": "Usuário logado",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/user", "host": ["{{base_url}}"], "path": ["api", "user"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Listar tarefas",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/tasks", "host": ["{{base_url}}"], "path": ["api", "tasks"] }
+          }
+        },
+        {
+          "name": "Criar tarefa",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Nova tarefa\",\n  \"descricao\": \"Descrição da tarefa\",\n  \"status\": \"pendente\",\n  \"prioridade\": \"baixa\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/tasks", "host": ["{{base_url}}"], "path": ["api", "tasks"] }
+          }
+        },
+        {
+          "name": "Atualizar tarefa",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Atualizada\",\n  \"descricao\": \"Atualizada\",\n  \"status\": \"completo\",\n  \"prioridade\": \"alta\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/api/tasks/1", "host": ["{{base_url}}"], "path": ["api", "tasks", "1"] }
+          }
+        },
+        {
+          "name": "Excluir tarefa",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/tasks/1", "host": ["{{base_url}}"], "path": ["api", "tasks", "1"] }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
