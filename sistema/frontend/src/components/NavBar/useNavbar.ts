@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 import { getUserProfile } from '@/services/userService';
 import type { User } from '@/models/User';
 import web from '@/services/web';
@@ -18,11 +17,15 @@ export function setupNavBar() {
             usuario.value = user;
             userName.value = user.name || null;
             userAvatar.value = user.avatar ? `${web.defaults.baseURL}/storage/${user.avatar}` : null;
-        } catch (error) {
-            console.error('Erro ao carregar usuário da API:', error);
+        } catch (error: any) {
+            if (error.response?.status === 401) {
+                console.warn('Usuário não autenticado, redirecionando para login...');
+                await router.push('/login');
+            } else {
+                console.error('Erro ao carregar usuário da API:', error);
+            }
         }
     }
-
 
     const logout = async () => {
         try {

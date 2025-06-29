@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-
+import  web  from '@/services/web'
 export function useRegister() {
     const name = ref('')
     const email = ref('')
@@ -21,8 +21,20 @@ export function useRegister() {
     const router = useRouter()
 
     const register = async () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email.value)) {
+            alert('E-mail inválido. Por favor, insira um e-mail válido como "exemplo@dominio.com".');
+            return;
+        }
+
+        if (password.value !== password_confirmation.value) {
+            alert('As senhas não coincidem.');
+            return;
+        }
+
         try {
-            await axios.get('http://localhost:8080/sanctum/csrf-cookie', { withCredentials: true });
+            await web.get('/sanctum/csrf-cookie', { withCredentials: true });
 
             const response = await axios.post('/api/register', {
                 name: name.value,
@@ -31,15 +43,17 @@ export function useRegister() {
                 password_confirmation: password_confirmation.value
             });
 
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', JSON.stringify({
                 id: response.data.user.id,
                 name: response.data.user.name
-            }));
+            }))
 
-            router.push('/');
+            window.location.reload()
         } catch (error: any) {
-            alert('Erro ao registrar: ' + (error?.response?.data?.message || 'Erro desconhecido'));
+            console.error('Erro ao registrar:', error);
+            const msg = error?.response?.data?.message || 'Erro desconhecido';
+            alert('Erro ao registrar: ' + msg);
         }
     }
 

@@ -11,19 +11,26 @@ import  '../public/css/cropper.css';
 import  '../public/js/cropper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import '../public/css/main.css';
+import '../public/css/cropper.css';
+import '../public/js/cropper.js';
+
 import * as bootstrap from 'bootstrap';
-const app = createApp(App);
-const pinia = createPinia();
-
-app.use(Toast)
-app.use(pinia);
-app.use(router);
-
-app.mount('#app');
-
-
+window.bootstrap = bootstrap;
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8080';
-window.bootstrap = bootstrap;
+
+const token = localStorage.getItem('token');
+if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+const app = createApp(App);
+
+app.use(createPinia());
+app.use(Toast);
+app.use(router);
+
+app.mount('#app');
