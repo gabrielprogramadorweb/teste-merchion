@@ -5,4 +5,9 @@ const web = axios.create({
     withCredentials: true
 });
 
+const token = localStorage.getItem('token');
+if (token) {
+    web.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
 export default web;
