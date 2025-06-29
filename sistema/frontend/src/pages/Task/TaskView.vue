@@ -1,5 +1,5 @@
 <template>
-    <div class="container" style="margin-top:100px;background-color:#111827">
+    <div class="container" style="margin-top:120px;background-color:#111827">
     <div class="d-flex justify-content-between align-items-center mb-3" style="background-color:#111827">
             <h2 class="text-white fw-semibold fs-4">Minhas Tarefas</h2>
             <button class="btn btn-success btn-sm px-3 py-2" @click="abrirModal">
@@ -21,23 +21,13 @@
                         <hr class="my-2" style="border:1px solid #0dc9ee;" />
                         <div>
                             <small class="text-white">Comentários</small>
-                            <div
-                                v-for="comentario in comentariosPorTask(task.id)"
-                                :key="comentario.id"
-                                class="mb-1 text-white small"
-                            >
+                            <div v-for="comentario in comentariosPorTask(task.id)" :key="comentario.id" class="mb-1 text-white small">
                                 <i class="bi bi-chat-left-dots-fill me-1 text-white"></i>
                                 <strong>{{ comentario.user?.name || 'Usuário' }}:</strong> {{ comentario.comentario }}
                             </div>
 
                             <div class="input-group input-group-sm mt-2">
-                                <input
-                                    v-model="novoComentario[task.id]"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Comentar..."
-                                    style="background-color:#1f2937;border:1px solid #0dc9ee;color:#f8fafc;"
-                                >
+                                <input v-model="novoComentario[task.id]" type="text" class="form-control" placeholder="Comentar..." style="background-color:#1f2937;border:1px solid #0dc9ee;color:#f8fafc;">
                                 <button class="btn btn-outline-primary" @click="adicionarComentario(task.id)">
                                     <i class="bi bi-send"></i>
                                 </button>

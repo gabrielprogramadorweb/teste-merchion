@@ -6,7 +6,10 @@
             </div>
             <h1 class="h3 fw-bold">Bem-vindo ao Dashboard</h1>
             <p class="text-muted">Você está autenticado com sucesso!</p>
-            <button class="btn btn-primary mt-3">Ir para área principal</button>
+            <router-link to="/tasks">
+                <button class="btn btn-primary mt-3">Ir para área Kanban</button>
+            </router-link>
+
         </div>
     </div>
 </template>
