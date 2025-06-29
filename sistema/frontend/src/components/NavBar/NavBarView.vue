@@ -29,10 +29,12 @@
                             <i class="bi bi-list-check me-2" style="height:28px;"></i> Minhas Tarefas
                         </router-link>
 
-                        <div class="dropdown w-100 w-lg-auto">
-                            <button class="btn btn-transparent d-flex align-items-center gap-2 fw-semibold w-100 w-lg-auto" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border:1px solid #0dc9ee">
-                                <img :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle" width="32" height="32" alt="Avatar" style="border:1px solid #0dc9ee" />
-                                <span class="text-light">{{ userName }}</span>
+                        <div class="dropdown">
+                            <button type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-transparent d-flex align-items-center gap-2 fw-semibold flex-nowrap" style="border: 1px solid #0dc9ee; white-space: nowrap; min-width: max-content;">
+                                <img :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle" width="32" height="32" alt="Avatar"
+                                     style="border: 1px solid #0dc9ee;" />
+
+                                <span class="text-light" style="white-space: nowrap;">{{ userName }}</span>
                                 <i class="bi bi-caret-down-fill text-light small"></i>
                             </button>
 
