@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-md-4" v-for="status in statusList" :key="status.value">
-                <div style="background-color:#111827;color:#f1f5f9;border:1px solid #00ffa3;" class="rounded-3 shadow-sm p-3 mb-4">
+                <div style="background-color:#111827;color:#f1f5f9;border:1px solid #0dc9ee;" class="rounded-3 shadow-sm p-3 mb-4">
                     <h6 class="text-center text-white fw-semibold mb-3">
                         <i :class="status.icon" class="me-1"></i>
                         {{ status.label }}
@@ -18,7 +18,7 @@
                     <div v-for="task in tasksPorStatus(status.value)" :key="task.id" class="shadow-sm rounded-3 small" style="background-color:#111827;color:#f1f5f9;margin-bottom:18px;padding:14px;border:1px solid #334155;">
                         <h6 class="fw-semibold mb-1" style="color:#fff;">{{ task.titulo }}</h6>
                         <p class="mb-2 small text-light">{{ task.descricao }}</p>
-                        <hr class="my-2" style="border:1px solid #00ffa3;" />
+                        <hr class="my-2" style="border:1px solid #0dc9ee;" />
                         <div>
                             <small class="text-white">Comentários</small>
                             <div
@@ -36,7 +36,7 @@
                                     type="text"
                                     class="form-control"
                                     placeholder="Comentar..."
-                                    style="background-color:#1f2937;border:1px solid #00ffa3;color:#f8fafc;"
+                                    style="background-color:#1f2937;border:1px solid #0dc9ee;color:#f8fafc;"
                                 >
                                 <button class="btn btn-outline-primary" @click="adicionarComentario(task.id)">
                                     <i class="bi bi-send"></i>
