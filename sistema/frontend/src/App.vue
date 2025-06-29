@@ -9,13 +9,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import NavBarView from '@/components/NavBar/NavBarView.vue'
-import SuporteChat from '@/components/Suporte/SuporteChat.vue'
+import Suporte from '@/components/Suporte/Suporte.vue'
 
 export default defineComponent({
     name: 'App',
     components: {
         NavBar: NavBarView,
-        SuporteChat,
+        SuporteChat: Suporte,
     },
 })
 </script>
