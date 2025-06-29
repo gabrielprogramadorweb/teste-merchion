@@ -1,12 +1,11 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { getUserProfile } from '@/services/userService';
-import type { User } from '@/models/User';
 import web from '@/services/web';
 
 const userName = ref<string | null>(null);
 const userAvatar = ref<string | null>(null);
-const usuario = ref<User | null>(null);
+const menuAberto = ref(false);
 
 export function setupNavBar() {
     const router = useRouter();
@@ -14,7 +13,6 @@ export function setupNavBar() {
     async function carregarUsuario() {
         try {
             const user = await getUserProfile();
-            usuario.value = user;
             userName.value = user.name || null;
             userAvatar.value = user.avatar ? `${web.defaults.baseURL}/storage/${user.avatar}` : null;
         } catch (error: any) {
@@ -37,19 +35,22 @@ export function setupNavBar() {
         try {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-
             await router.push('/login');
             window.location.reload();
         } catch (e) {
             console.error('Erro ao redirecionar após logout:', e);
         }
     };
+    function toggleMenu() {
+        menuAberto.value = !menuAberto.value;
+    }
 
     return {
-        usuario,
         userName,
         userAvatar,
         carregarUsuario,
-        logout
+        logout,
+        menuAberto,
+        toggleMenu
     };
 }
