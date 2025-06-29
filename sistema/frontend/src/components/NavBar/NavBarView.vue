@@ -1,8 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg px-4 py-3 shadow-sm  fixed-top" style="background-color:#1F2937">
     <div class="container-fluid d-flex align-items-center justify-between">
-            <router-link class="navbar-brand d-flex align-items-center text-info fw-bold fs-5" to="/"><i class="bi bi-kanban-fill fs-4 me-2 text-primary"></i> FlowTask</router-link>
-
+            <router-link class="navbar-brand d-flex align-items-center text-info fw-bold fs-5" to="/"><img src="/imagens/flow-task.png" width="50" alt="flow"></router-link>
             <div class="d-flex align-items-center gap-3">
                 <template v-if="!userName">
                     <router-link to="/login" class="btn btn-outline-light px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-in-right me-1"></i> Entrar</router-link>

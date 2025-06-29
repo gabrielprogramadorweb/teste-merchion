@@ -7,12 +7,12 @@
             <form @submit.prevent="login">
                 <div class="mb-3">
                     <label for="email" class="form-label text-white">E-mail</label>
-                    <input v-model="email" type="email" class="form-control" id="email" required style="background-color:#2a2a2e;border:1px solid #0dc9ee;color:#fff;" />
+                    <input v-model="email" type="email" class="form-control" id="email" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
                 </div>
 
                 <div class="mb-4 position-relative">
                     <label for="password" class="form-label text-white">Senha</label>
-                    <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control pe-4" id="password" required style="background-color:#2a2a2e;border:1px solid #0dc9ee;color:#fff;" />
+                    <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control pe-4" id="password" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
                     <span class="position-absolute" style="top: 38px; right: 12px; cursor: pointer;" @click="showPassword = !showPassword">
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size: 1.1rem; color: #ccc;"></i>
                     </span>

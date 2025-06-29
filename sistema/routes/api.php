@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\TaskComentariosController;
+    use App\Http\Controllers\Api\SuporteController;
+    use App\Http\Controllers\Api\TaskComentariosController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -33,6 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [ProfileController::class, 'edit']);
     Route::post('/perfil/editar', [ProfileController::class, 'update']);
     Route::delete('/perfil/deletar', [ProfileController::class, 'destroy']);
+
+    //Suporte
+    Route::post('/suporte/responder', [SuporteController::class, 'responder']);
+
 
 });
 
