@@ -108,6 +108,7 @@ node -v
 ```
 npm run dev
 ```
+Após isso, acesse a rota [http://localhost:5173/](http://localhost:5173/)
 
 #### .env:
 ```
