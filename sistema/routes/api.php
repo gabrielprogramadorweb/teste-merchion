@@ -34,11 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [ProfileController::class, 'edit']);
     Route::post('/perfil/editar', [ProfileController::class, 'update']);
     Route::delete('/perfil/deletar', [ProfileController::class, 'destroy']);
-
-    //Suporte
-    Route::post('/suporte/responder', [SuporteController::class, 'responder']);
-
-
 });
 
 
+//Suporte
+Route::post('/suporte/responder', [SuporteController::class, 'responder']);
