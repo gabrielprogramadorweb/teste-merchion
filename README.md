@@ -156,20 +156,25 @@ Nas requisições subsequentes às rotas protegidas, adicione o token no cabeça
 Authorization: Bearer SEU_TOKEN
 Agora você pode acessar rotas como:
 
-Tarefas
-
+#### Tarefas
+```
 GET    /api/tasks
 POST   /api/tasks
 PUT    /api/tasks/{id}
 DELETE /api/tasks/{id}
 GET    /api/comentarios/task/{id}
-
-Comentários
-
+```
+#### Comentários
+```
 GET  /api/comentarios
 POST /api/comentarios
-
-Perfil
+```
+#### Perfil
+```
+GET    /api/user
+POST   /api/perfil/editar
+DELETE /api/perfil/deletar
+```
 
 GET    /api/user
 POST   /api/perfil/editar
