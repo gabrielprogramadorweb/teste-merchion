@@ -148,16 +148,19 @@ O corpo da requisição deve conter o email e password.
 
 Você receberá um token no formato JWT. Exemplo:
 
+```json
 {
-	"token": "25|GGULwOJMrYQw9Fqoegd3pkSRkF7twxrsm5tsFHHPd17cafb9",
-	"user": {
-		"name": "Teste",
-		"email": "teste@flowtask.com",
-		"updated_at": "2025-06-30T05:41:38.000000Z",
-		"created_at": "2025-06-30T05:41:38.000000Z",
-		"id": 4
-	}
+  "token": "25|GGULwOJMrYQw9Fqoegd3pkSRkF7twxrsm5tsFHHPd17cafb9",
+  "user": {
+    "name": "Teste",
+    "email": "teste@flowtask.com",
+    "updated_at": "2025-06-30T05:41:38.000000Z",
+    "created_at": "2025-06-30T05:41:38.000000Z",
+    "id": 4
+  }
 }
+```
+
 Nas requisições subsequentes às rotas protegidas, adicione o token no cabeçalho de autenticação:
 
 Authorization: Bearer SEU_TOKEN
