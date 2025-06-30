@@ -155,7 +155,7 @@ Nas requisições subsequentes às rotas protegidas, adicione o token no cabeça
 Authorization: Bearer SEU_TOKEN
 Agora você pode acessar rotas como:
 
-####Tarefas
+#### Tarefas
 ```
 GET    /api/tasks
 POST   /api/tasks
