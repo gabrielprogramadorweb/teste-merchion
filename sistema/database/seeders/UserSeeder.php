@@ -11,14 +11,14 @@
         public function run(): void
         {
             User::create([
-                'name' => 'Contratante 01',
-                'email' => 'contratante01@flowtask.com',
+                'name' => 'Usuario 01',
+                'email' => 'usuario01@flowtask.com',
                 'password' => Hash::make('123'),
             ]);
 
             User::create([
-                'name' => 'Freelancer 01',
-                'email' => 'freelancer01@flowtask.com',
+                'name' => 'Usuario 02',
+                'email' => 'usuario02@flowtask.com',
                 'password' => Hash::make('123'),
             ]);
 
