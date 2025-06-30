@@ -1,5 +1,21 @@
-# FlowTask
-### Laravel 12, Vue.js 3.5, Bootstrap 5.3
+## FlowTask
+### Laravel 12 • Vue.js 3.5 • Bootstrap 5.3
+FlowTask é uma plataforma para gerenciamento de tarefas com comentários, controle de status e um chat com agente de IA integrado para tirar dúvidas sobre a própria aplicação.
+
+✅ Funcionalidades principais
+✅ Criação de tarefas com:
+
+Título
+
+Descrição
+
+Status: Pendente, Em progresso, Completa
+
+💬 Possibilidade de comentar tarefas (ex: feedback, instruções, histórico)
+
+🤖 Chat com agente de IA no canto inferior direito, treinado para responder perguntas sobre a plataforma FlowTask
+
+### Instalação do projeto
 
 #### . Clone projeto  
 ```
@@ -35,6 +51,41 @@ composer install
 ```
 php artisan key:generate
 ```
+
+#### . No diretório sistema, instale o npm
+```
+npm install
+```
+
+#### ⚙️ Scripts Úteis (Executar via npm run)
+Estes scripts foram definidos no package.json para facilitar a execução de comandos frequentes no ambiente Docker + Laravel:
+
+✅ 1. Reiniciar containers do Docker
+
+```
+npm run dc
+```
+Para quando quiser derrubar e subir todos os containers do Docker novamente (por exemplo, após mudar algo no docker-compose.yml ou .env).
+
+✅ 2. Acessar o container PHP
+```
+npm run php
+```
+Abre um terminal dentro do container php, onde você pode executar comandos Artisan, Composer, etc.
+
+✅ 3. Resetar o banco e rodar seeders
+```
+npm run fresh-seed
+```
+Executa php artisan migrate:fresh --seed, ou seja:
+
+Apaga todas as tabelas,
+
+Recria as migrations,
+
+Popula o banco com os seeders.
+
+Atenção: Esse comando apaga todos os dados da base!
 
 #### . Subir frontend Vue.js no diretório /sistema/frontend
 ```
