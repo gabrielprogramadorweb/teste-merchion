@@ -65,7 +65,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" style="filter: invert(1);"></button>
                         </div>
                         <div class="modal-body">
-                            <input v-model="form.titulo" type="text" class="form-control mb-3" placeholder="Título" required style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;">
+                            <input v-model="form.titulo" type="text" class="form-control mb-3" placeholder="Título" required   style="background-color: #1f2937; color: #f1f5f9; border: 1px solid #374151;">
                             <textarea v-model="form.descricao" class="form-control mb-3" placeholder="Descrição" rows="3" style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;"></textarea>
                             <select v-model="form.status" class="form-select" style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;">
                                 <option value="pendente">Pendente</option>
@@ -133,3 +133,10 @@ onMounted(async () => {
     await carregarTasks();
 });
 </script>
+<style scoped>
+input::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+</style>
