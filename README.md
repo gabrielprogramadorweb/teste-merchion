@@ -53,7 +53,7 @@ composer install
 php artisan key:generate
 ```
 
-#### . No diretório sistema, instale o npm
+#### . No diretório sistema, instale o npm, indicado usar o terminal do phpstorm ou vscode
 ```
 npm install
 ```
@@ -91,6 +91,7 @@ Abre um terminal dentro do container php, onde você pode executar comandos Arti
 
 #### . Instalar npm no frontend Vue.js no diretório /sistema/frontend
 ```
+cd frontend
 npm install
 ```
 
