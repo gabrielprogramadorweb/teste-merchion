@@ -134,4 +134,6 @@ Escala bem para projetos maiores, mantendo o código modular.
 
 Exemplo: pages/Auth/LoginView.vue usa pages/Auth/useLogin.ts para lidar com o formulário e requisição.
 
+#### . Caso deseje testar as rotas da API, acesse o diretório collection e importe o arquivo teste-merchion.json no Postman ou Insomnia.
+
 
