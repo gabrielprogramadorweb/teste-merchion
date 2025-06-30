@@ -24,7 +24,8 @@ git clone git@github.com:gabrielprogramadorweb/teste-merchion.git
 
 #### . Navegar pasta sistema  
 ```
-cd sistema
+cd teste-merchion/sistema
+
 ```
 
 #### . Criar .env
