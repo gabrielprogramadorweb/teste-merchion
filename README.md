@@ -176,9 +176,5 @@ POST   /api/perfil/editar
 DELETE /api/perfil/deletar
 ```
 
-GET    /api/user
-POST   /api/perfil/editar
-DELETE /api/perfil/deletar
-
 
 
