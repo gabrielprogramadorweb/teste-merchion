@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-between">
                     <router-link to="/register" class="btn btn-outline-light" style="border-color:#0dc9ee;color:#0dc9ee;transition: all 0.3s ease;"
                         onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #00ffa3';" >
+                        onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';" >
                         Criar Conta
                     </router-link>
                     <button type="submit" class="btn" style="background:linear-gradient(90deg,#0dc9ee,#0d6dfb);border:none;color:#111827;font-weight:bold;">
