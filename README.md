@@ -136,4 +136,51 @@ Exemplo: pages/Auth/LoginView.vue usa pages/Auth/useLogin.ts para lidar com o fo
 
 #### . Caso deseje testar as rotas da API, acesse o diretório collection e importe o arquivo teste-merchion.json no Postman ou Insomnia.
 
+Autenticação e Testes de Rotas Protegidas
+As rotas da API que manipulam tarefas, comentários e perfil de usuário estão protegidas pelo middleware auth:sanctum. Isso significa que o usuário precisa estar autenticado para acessá-las.
+
+Como testar rotas protegidas:
+Faça login via rota:
+
+POST /api/register
+
+O corpo da requisição deve conter o email e password.
+
+Você receberá um token no formato JWT. Exemplo:
+
+{
+	"token": "25|GGULwOJMrYQw9Fqoegd3pkSRkF7twxrsm5tsFHHPd17cafb9",
+	"user": {
+		"name": "Teste",
+		"email": "teste@flowtask.com",
+		"updated_at": "2025-06-30T05:41:38.000000Z",
+		"created_at": "2025-06-30T05:41:38.000000Z",
+		"id": 4
+	}
+}
+Nas requisições subsequentes às rotas protegidas, adicione o token no cabeçalho de autenticação:
+
+Authorization: Bearer SEU_TOKEN
+Agora você pode acessar rotas como:
+
+Tarefas
+
+GET    /api/tasks
+POST   /api/tasks
+PUT    /api/tasks/{id}
+DELETE /api/tasks/{id}
+GET    /api/comentarios/task/{id}
+
+Comentários
+
+GET  /api/comentarios
+POST /api/comentarios
+
+Perfil
+
+GET    /api/user
+POST   /api/perfil/editar
+DELETE /api/perfil/deletar
+
+
 
