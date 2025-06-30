@@ -7,7 +7,6 @@
         "build": "vite build",
         "dc": "docker-compose down && docker-compose up -d",
         "php": "docker-compose exec php bash",
-        "queue": "docker-compose exec php bash -c 'php artisan queue:work'",
         "fresh-seed": "docker-compose exec php php artisan migrate:fresh --seed"
     },
     "devDependencies": {
