@@ -1,5 +1,5 @@
 ## FlowTask
-### Laravel 12 • Vue.js 3.5 • Bootstrap 5.3
+### Laravel 12 • Vue.js 3.5 • Bootstrap 5.3 • Docker
 FlowTask é uma plataforma para gerenciamento de tarefas com comentários, controle de status e um chat com agente de IA integrado para tirar dúvidas sobre a própria aplicação.
 
 ✅ Funcionalidades principais
