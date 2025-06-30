@@ -61,6 +61,8 @@ APP_KEY=base64:HKKDGYubRU2L61oVLJUdoHOBI80nSFgOHtHMsQAKWes=
 APP_DEBUG=true
 APP_URL=http://localhost:8080
 
+GROQ_API_KEY=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
+
 LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
@@ -118,5 +120,18 @@ VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ```
+
+#### . 🧩 Uso de .vue e .ts na mesma pasta
+Cada view (ex: LoginView.vue) possui um arquivo .ts correspondente (useLogin.ts) na mesma pasta. Essa abordagem:
+
+Organiza a lógica e visual por funcionalidade (feature-based);
+
+Separa a lógica (use*.ts) do template, facilitando leitura e manutenção;
+
+Permite reutilizar código e testar com mais facilidade;
+
+Escala bem para projetos maiores, mantendo o código modular.
+
+Exemplo: pages/Auth/LoginView.vue usa pages/Auth/useLogin.ts para lidar com o formulário e requisição.
 
 
