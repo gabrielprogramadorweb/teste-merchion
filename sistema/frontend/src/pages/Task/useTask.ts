@@ -116,3 +116,21 @@ export const adicionarComentario = async (taskId: number) => {
         ...data
     ];
 };
+
+export const formatarData = (data: string | Date): string => {
+    const date = new Date(data);
+
+    const hora = date.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    const dataFormatada = date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+
+    return `${hora} - ${dataFormatada}`;
+};
+

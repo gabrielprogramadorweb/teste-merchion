@@ -24,6 +24,10 @@
                             <div v-for="comentario in comentariosPorTask(task.id)" :key="comentario.id" class="mb-1 text-white small">
                                 <i class="bi bi-chat-left-dots-fill me-1 text-white"></i>
                                 <strong>{{ comentario.user?.name || 'Usuário' }}:</strong> {{ comentario.comentario }}
+                                <br />
+                                <small class="text-secondary fst-italic">
+                                    <i class="bi bi-clock me-1"></i> {{ formatarData(comentario.created_at) }}
+                                </small>
                             </div>
 
                             <div class="input-group input-group-sm mt-2">
@@ -123,8 +127,9 @@ import {
     carregarTasks,
     abrirModalExclusao,
     confirmarExclusao,
-    inicializarModalExclusao
-} from './Task';
+    formatarData,
+inicializarModalExclusao
+} from './useTask';
 
 import { onMounted } from 'vue';
 
