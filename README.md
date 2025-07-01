@@ -131,9 +131,9 @@ As rotas da API que manipulam tarefas, comentários e perfil de usuário estão 
 
 Como testar rotas protegidas:
 Faça login via rota:
-
+```
 POST /api/register
-
+```
 O corpo da requisição deve conter o email e password.
 
 Você receberá um token no formato JWT. Exemplo:
