@@ -69,8 +69,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" style="filter: invert(1);"></button>
                         </div>
                         <div class="modal-body">
-                            <input v-model="form.titulo" type="text" class="form-control mb-3" placeholder="Título" required   style="background-color: #1f2937; color: #f1f5f9; border: 1px solid #374151;">
-                            <textarea v-model="form.descricao" class="form-control mb-3" placeholder="Descrição" rows="3" style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;"></textarea>
+                            <input v-model="form.titulo" type="text" class="form-control mb-1" placeholder="Título" :class="{ 'is-invalid': validaTitulo }" required style="background-color: #1f2937; color: #f1f5f9; border: 1px solid #374151;"/>
+                            <div v-if="validaTitulo" class="text-danger mb-2 small">
+                                {{ validaTitulo }}
+                            </div>
+                            <textarea v-model="form.descricao" class="form-control mb-1" placeholder="Descrição" rows="3" :class="{ 'is-invalid': validaDescricao }" required style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;"></textarea>
+                            <div v-if="validaDescricao" class="text-danger mb-2 small">
+                                {{ validaDescricao }}
+                            </div>
                             <select v-model="form.status" class="form-select" style="background-color:#1f2937;border:1px solid #334155;color:#f8fafc;">
                                 <option value="pendente">Pendente</option>
                                 <option value="em_progresso">Em Progresso</option>
@@ -114,7 +120,6 @@
 
 <script lang="ts" setup>
 import {
-    comentarios,
     novoComentario,
     comentariosPorTask,
     adicionarComentario,
@@ -128,7 +133,9 @@ import {
     abrirModalExclusao,
     confirmarExclusao,
     formatarData,
-inicializarModalExclusao
+    validaTitulo,
+    validaDescricao,
+    inicializarModalExclusao
 } from './useTask';
 
 import { onMounted } from 'vue';
@@ -136,6 +143,7 @@ import { onMounted } from 'vue';
 onMounted(async () => {
     inicializarModalExclusao();
     await carregarTasks();
+
 });
 </script>
 <style scoped>

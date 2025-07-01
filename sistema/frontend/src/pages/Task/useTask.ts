@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import { Task } from '@/models/Task';
 import { Comentario } from '@/models/Comentario';
 import * as taskService from '@/services/taskService';
@@ -37,15 +37,17 @@ export const carregarTasks = async () => {
 };
 
 export const salvarTask = async () => {
+
     if (form.value.id) {
-        await taskService.updateTask(form.value);
+        await taskService.updateTask(form.value)
     } else {
-        await taskService.createTask(form.value);
+        await taskService.createTask(form.value)
     }
-    await carregarTasks();
-    fecharModal();
-    resetForm();
-};
+
+    await carregarTasks()
+    fecharModal()
+    resetForm()
+}
 
 export const editarTask = (task: Task) => {
     form.value = { ...task };
@@ -134,3 +136,14 @@ export const formatarData = (data: string | Date): string => {
     return `${hora} - ${dataFormatada}`;
 };
 
+export const validaTitulo = computed(() => {
+    if (!form.value.titulo.trim()) return 'O título é obrigatório.'
+    if (form.value.titulo.trim().length < 3) return 'O título deve ter no mínimo 3 caracteres.'
+    return ''
+})
+
+export const validaDescricao = computed(() => {
+    if (!form.value.descricao.trim()) return 'A descrição é obrigatória.'
+    if (form.value.descricao.trim().length < 20) return 'A descrição deve ter no mínimo 20 caracteres.'
+    return ''
+})
