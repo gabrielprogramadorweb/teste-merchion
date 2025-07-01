@@ -4,7 +4,8 @@ import { Comentario } from '@/models/Comentario';
 import * as taskService from '@/services/taskService';
 import * as comentarioService from '@/services/comentarioService';
 import * as bootstrap from 'bootstrap';
-
+import { useToast, POSITION } from 'vue-toastification'
+const toast = useToast()
 export const tasks = ref<Task[]>([]);
 export const form = ref<Task>({
     titulo: '',
@@ -37,6 +38,13 @@ export const carregarTasks = async () => {
 };
 
 export const salvarTask = async () => {
+    if (validaTitulo.value || validaDescricao.value) {
+        toast.warning(validaTitulo.value || validaDescricao.value, {
+            timeout: 4000,
+            position: POSITION.TOP_RIGHT
+        })
+        return
+    }
 
     if (form.value.id) {
         await taskService.updateTask(form.value)
