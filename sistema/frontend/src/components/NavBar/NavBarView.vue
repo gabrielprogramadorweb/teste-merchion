@@ -15,11 +15,10 @@
                 <div v-if="menuAberto || innerWidth >= 992" class="w-100 mt-3 mt-lg-0" id="navbarContent">
                     <div v-show="menuVisivel || innerWidth >= 992" class="d-flex flex-column flex-lg-row align-items-center justify-content-end gap-3" style="width: 100%;">
                         <template v-if="!userName">
-                            <router-link to="/login" class="btn btn-outline-light px-3 py-2 fw-semibold w-100 w-lg-auto" style="border: 1px solid #0dc9ee; color:#0dc9ee;">
+                            <router-link to="/login" class="btn btn-outline-light px-3 py-2 fw-semibold w-auto" style="border: 1px solid #0dc9ee; color:#0dc9ee;">
                                 <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
                             </router-link>
-                            <router-link
-                                to="/register" class="btn btn-outline-light px-3 py-2 w-100 d-flex align-items-center justify-content-center" style="border: 1px solid #0dc9ee; color:#0dc9ee;--bs-btn-hover-color: #fff; hover-border-color: #fff;">
+                            <router-link to="/register" class="btn btn-outline-light px-3 py-2 w-auto d-flex align-items-center justify-content-center" style="border: 1px solid #0dc9ee; color:#0dc9ee;--bs-btn-hover-color: #fff; hover-border-color: #fff;">
                                 <i class="bi bi-person-plus-fill me-2"></i>
                                 Registrar
                             </router-link>
