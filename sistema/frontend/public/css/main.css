@@ -30,3 +30,12 @@ body {
     transform: translateY(0);
     pointer-events: auto;
 }
+.slide-delay-enter-active,
+.slide-delay-leave-active {
+    transition: all 0.5s ease;
+}
+.slide-delay-enter-from,
+.slide-delay-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+}

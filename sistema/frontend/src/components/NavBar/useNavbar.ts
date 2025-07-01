@@ -6,6 +6,7 @@ import web from '@/services/web';
 const userName = ref<string | null>(null);
 const userAvatar = ref<string | null>(null);
 const menuAberto = ref(false);
+const menuVisivel = ref(false);
 
 export function setupNavBar() {
     const router = useRouter();
@@ -41,8 +42,18 @@ export function setupNavBar() {
             console.error('Erro ao redirecionar após logout:', e);
         }
     };
-    function toggleMenu() {
-        menuAberto.value = !menuAberto.value;
+    const toggleMenu = () => {
+        if (!menuAberto.value) {
+            menuAberto.value = true;
+            setTimeout(() => {
+                menuVisivel.value = true;
+            }, 2000);
+        } else {
+            menuVisivel.value = false;
+            setTimeout(() => {
+                menuAberto.value = false;
+            }, 50);
+        }
     }
 
     return {
