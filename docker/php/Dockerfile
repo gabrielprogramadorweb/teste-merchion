@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip pdo_mysql mbstring exif
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install gd
+RUN docker-php-ext-install bcmath
 
 RUN mkdir -p /usr/src/php/ext/redis; \
 	curl -fsSL https://pecl.php.net/get/redis --ipv4 | tar xvz -C "/usr/src/php/ext/redis" --strip 1; \

@@ -6,8 +6,10 @@
     use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Session;
     use Illuminate\Support\Facades\Log;
+    use Illuminate\Support\Facades\Validator;
     use Illuminate\Validation\ValidationException;
 
     class AuthController extends Controller
@@ -55,30 +57,34 @@
             }
         }
 
+
         public function register(Request $request)
         {
             try {
-                $request->validate([
-                    'name' => 'required|string|max:255',
-                    'email' => 'required|email|unique:users',
-                    'password' => 'required|min:6|confirmed',
+                $validator = Validator::make($request->all(), [
+                    'name'     => 'required|string|max:255',
+                    'email'    => 'required|email|unique:users,email',
+                    'password' => 'required|string|min:6|confirmed',
                 ]);
 
+                if ($validator->fails()) {
+                    return response()->json([ 'errors' => $validator->errors()], 422);
+                }
+
                 $user = User::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
+                    'name'     => $request->input('name'),
+                    'email'    => $request->input('email'),
+                    'password' => Hash::make($request->input('password')),
                 ]);
 
                 return response()->json([
                     'token' => $user->createToken('token')->plainTextToken,
-                    'user' => $user,
-                ]);
-            } catch (ValidationException $e) {
-                return response()->json(['message' => 'Erro de validação', 'errors' => $e->errors()], 422);
+                    'user'  => $user,
+                ], 201);
             } catch (\Throwable $e) {
-                Log::error('Erro no registro: ' . $e->getMessage());
-                return response()->json(['message' => 'Erro interno no servidor.'], 500);
+                Log::error('Erro no registro de usuário', ['erro' => $e->getMessage(),'linha' => $e->getLine(),'arquivo' => $e->getFile(),]);
+                return response()->json(['message' => $e->getMessage()], 500);
             }
         }
+
     }

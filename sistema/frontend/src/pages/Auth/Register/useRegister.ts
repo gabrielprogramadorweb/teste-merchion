@@ -15,41 +15,50 @@ export function useRegister() {
     const toast = useToast()
     const router = useRouter()
 
-    const isEmailValid = computed(() => {
-        const regex = /^[^\s@]+@flowtask\.com$/i
-        return regex.test(email.value)
+    const validaEmail = computed(() => {
+        if (!email.value.trim()) return 'O e-mail é obrigatório.'
+        if (!/^[^\s@]+@flowtask\.com$/i.test(email.value)) {
+            return 'O e-mail deve ser do tipo nome@flowtask.com'
+        }
+        return ''
     })
 
-    const isPasswordValid = computed(() => {
-        return (
-            password.value.length >= 8 &&
-            /[A-Z]/.test(password.value) &&
-            /[a-z]/.test(password.value) &&
-            /[0-9]/.test(password.value) &&
-            /[\W_]/.test(password.value)
-        )
+    const validaPassword = computed(() => {
+        if (!password.value) return 'A senha é obrigatória.'
+        if (password.value.length < 8) return 'A senha deve ter no mínimo 8 caracteres.'
+        if (!/[A-Z]/.test(password.value)) return 'A senha deve conter pelo menos uma letra maiúscula.'
+        if (!/[a-z]/.test(password.value)) return 'A senha deve conter pelo menos uma letra minúscula.'
+        if (!/[0-9]/.test(password.value)) return 'A senha deve conter pelo menos um número.'
+        if (!/[\W_]/.test(password.value)) return 'A senha deve conter pelo menos um caractere especial.'
+        return ''
     })
 
-    const togglePassword = () => {
-        showPassword.value = !showPassword.value
-    }
-
-    const togglePasswordConfirm = () => {
-        showPasswordConfirm.value = !showPasswordConfirm.value
-    }
+    const validaConfirmacaoSenha = computed(() => {
+        if (!password_confirmation.value) return 'Confirme a senha.'
+        if (password.value !== password_confirmation.value) return 'As senhas não coincidem.'
+        return ''
+    })
 
     const register = async () => {
-        if (!isEmailValid.value) {
-            toast.warning('O e-mail deve terminar com @flowtask.com', {
+        if (!name.value.trim()) {
+            toast.warning('O nome é obrigatório.', {
                 timeout: 4000,
                 position: POSITION.TOP_RIGHT
             })
             return
         }
 
-        if (!isPasswordValid.value) {
-            toast.warning('A senha deve conter no mínimo 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial.', {
-                timeout: 5000,
+        if (validaEmail.value) {
+            toast.warning(validaEmail.value, {
+                timeout: 4000,
+                position: POSITION.TOP_RIGHT
+            })
+            return
+        }
+
+        if (validaPassword.value) {
+            toast.warning(validaPassword.value, {
+                timeout: 4000,
                 position: POSITION.TOP_RIGHT
             })
             return
@@ -81,11 +90,23 @@ export function useRegister() {
 
             router.push('/').then(() => window.location.reload())
         } catch (error: any) {
-            const msg = error?.response?.data?.message || 'Erro desconhecido'
-            toast.error('Erro ao registrar: ' + msg, {
-                timeout: 5000,
-                position: POSITION.TOP_RIGHT
-            })
+            if (error.response?.status === 422 && error.response.data.errors) {
+                const errors = error.response.data.errors
+                Object.values(errors).forEach((mensagens: any) => {
+                    mensagens.forEach((msg: string) => {
+                        toast.error(msg, {
+                            timeout: 5000,
+                            position: POSITION.TOP_RIGHT
+                        })
+                    })
+                })
+            } else {
+                const msg = error?.response?.data?.message || 'Erro desconhecido'
+                toast.error('Erro ao registrar: ' + msg, {
+                    timeout: 5000,
+                    position: POSITION.TOP_RIGHT
+                })
+            }
         }
     }
 
@@ -96,10 +117,11 @@ export function useRegister() {
         password_confirmation,
         showPassword,
         showPasswordConfirm,
-        togglePassword,
-        togglePasswordConfirm,
+        togglePassword: () => showPassword.value = !showPassword.value,
+        togglePasswordConfirm: () => showPasswordConfirm.value = !showPasswordConfirm.value,
         register,
-        isEmailValid,
-        isPasswordValid
+        validaEmail,
+        validaPassword,
+        validaConfirmacaoSenha
     }
 }

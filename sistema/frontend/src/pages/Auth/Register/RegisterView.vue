@@ -11,8 +11,8 @@
                 <div class="mb-3">
                     <label for="email" class="form-label text-white">E-mail</label>
                     <input v-model="email" :class="{ 'is-invalid': email && !isEmailValid }" type="email" class="form-control" id="email" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
-                    <div v-if="email && !isEmailValid" class="text-danger mt-1" style="font-size: 0.85rem;">
-                        O e-mail deve terminar com <strong>@flowtask.com</strong>
+                    <div v-if="email && validaEmail" class="text-danger mt-1" style="font-size: 0.85rem;">
+                        {{ validaEmail }}
                     </div>
                 </div>
 
@@ -22,13 +22,9 @@
                     <span class="position-absolute" style="top:38px;right:12px;cursor:pointer;" @click="togglePassword">
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size:1.1rem;color:#ccc;"></i>
                     </span>
-                    <ul class="mt-2 text-danger" style="font-size: 0.8rem;" v-if="password">
-                        <li v-if="password.length < 8">Mínimo de 8 caracteres</li>
-                        <li v-if="!/[A-Z]/.test(password)">Letra maiúscula</li>
-                        <li v-if="!/[a-z]/.test(password)">Letra minúscula</li>
-                        <li v-if="!/[0-9]/.test(password)">Número</li>
-                        <li v-if="!/[\W_]/.test(password)">Caractere especial</li>
-                    </ul>
+                    <div v-if="password && validaPassword" class="text-danger mt-2" style="font-size: 0.8rem;">
+                        {{ validaPassword }}
+                    </div>
                 </div>
 
                 <div class="mb-4 position-relative">
@@ -37,8 +33,8 @@
                     <span class="position-absolute" style="top:38px;right:12px;cursor:pointer;" @click="togglePasswordConfirm">
                         <i :class="showPasswordConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size:1.1rem;color:#ccc;"></i>
                     </span>
-                    <div v-if="password && password_confirmation && password !== password_confirmation" class="text-danger mt-1" style="font-size: 0.85rem;">
-                        As senhas não coincidem
+                    <div v-if="password && password_confirmation && validaConfirmacaoSenha" class="text-danger mt-1" style="font-size: 0.85rem;">
+                        {{ validaConfirmacaoSenha }}
                     </div>
                 </div>
 
@@ -55,7 +51,7 @@ const {
     name, email, password, password_confirmation,
     showPassword, showPasswordConfirm,
     togglePassword, togglePasswordConfirm,
-    register, isEmailValid, isPasswordValid
+    register,   validaEmail, validaPassword, validaConfirmacaoSenha
 } = useRegister()
 </script>
 
