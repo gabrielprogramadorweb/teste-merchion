@@ -18,3 +18,15 @@ body {
 
     color: #ffffff !important;
 }
+
+.fade-custom {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+.fade-custom.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}

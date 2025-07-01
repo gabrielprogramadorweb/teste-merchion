@@ -30,15 +30,13 @@
                         </router-link>
 
                         <div class="dropdown">
-                            <button type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-transparent d-flex align-items-center gap-2 fw-semibold flex-nowrap" style="border: 1px solid #0dc9ee; white-space: nowrap; min-width: max-content;">
-                                <img :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle" width="32" height="32" alt="Avatar"
-                                     style="border: 1px solid #0dc9ee;" />
-
-                                <span class="text-light" style="white-space: nowrap;">{{ userName }}</span>
-                                <i class="bi bi-caret-down-fill text-light small"></i>
+                            <button type="button" @click="showDropdown = !showDropdown" class="btn btn-transparent d-flex align-items-center gap-2 fw-semibold flex-nowrap" style="border: 1px solid #0dc9ee; white-space: nowrap; min-width: max-content;">
+                                <img :src="userAvatar || '/imagens/icon-user.png'" class="rounded-circle" width="32" height="32" alt="Avatar" style="border: 1px solid #0dc9ee;" />
+                                <span class="text-light">{{ userName }}</span>
+                                <i :class="showDropdown ? 'bi bi-caret-up-fill' : 'bi bi-caret-down-fill'" class="text-light small"></i>
                             </button>
 
-                            <ul class="dropdown-menu custom-dropdown mt-2 shadow" aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu custom-dropdown mt-2 shadow fade-custom" :class="{ show: showDropdown }" @click.away="showDropdown = false" style="display: block;">
                                 <li>
                                     <router-link class="dropdown-item custom-dropdown-item" to="/perfil/editar">
                                         <i class="bi bi-person-gear me-2"></i> Editar Perfil
@@ -51,6 +49,7 @@
                                     </a>
                                 </li>
                             </ul>
+
                         </div>
                     </template>
                 </div>
@@ -60,10 +59,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { setupNavBar } from './useNavbar';
 
 const {userName, userAvatar, logout, carregarUsuario, menuAberto, toggleMenu} = setupNavBar();
+const showDropdown = ref(false);
 
 onMounted(() => {
     carregarUsuario();
