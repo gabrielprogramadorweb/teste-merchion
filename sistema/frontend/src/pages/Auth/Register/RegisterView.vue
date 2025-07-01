@@ -10,22 +10,38 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label text-white">E-mail</label>
-                    <input v-model="email" type="email" class="form-control" id="email" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
+                    <input v-model="email" :class="{ 'is-invalid': email && !isEmailValid }" type="email" class="form-control" id="email" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
+                    <div v-if="email && !isEmailValid" class="text-danger mt-1" style="font-size: 0.85rem;">
+                        O e-mail deve terminar com <strong>@flowtask.com</strong>
+                    </div>
                 </div>
+
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label text-white">Senha</label>
                     <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control pe-4" id="password" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
                     <span class="position-absolute" style="top:38px;right:12px;cursor:pointer;" @click="togglePassword">
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size:1.1rem;color:#ccc;"></i>
                     </span>
+                    <ul class="mt-2 text-danger" style="font-size: 0.8rem;" v-if="password">
+                        <li v-if="password.length < 8">Mínimo de 8 caracteres</li>
+                        <li v-if="!/[A-Z]/.test(password)">Letra maiúscula</li>
+                        <li v-if="!/[a-z]/.test(password)">Letra minúscula</li>
+                        <li v-if="!/[0-9]/.test(password)">Número</li>
+                        <li v-if="!/[\W_]/.test(password)">Caractere especial</li>
+                    </ul>
                 </div>
+
                 <div class="mb-4 position-relative">
                     <label for="password_confirmation" class="form-label text-white">Confirmar Senha</label>
                     <input :type="showPasswordConfirm ? 'text' : 'password'" v-model="password_confirmation" class="form-control pe-4" id="password_confirmation" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
                     <span class="position-absolute" style="top:38px;right:12px;cursor:pointer;" @click="togglePasswordConfirm">
                         <i :class="showPasswordConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size:1.1rem;color:#ccc;"></i>
                     </span>
+                    <div v-if="password && password_confirmation && password !== password_confirmation" class="text-danger mt-1" style="font-size: 0.85rem;">
+                        As senhas não coincidem
+                    </div>
                 </div>
+
                 <button type="submit" class="btn w-100" style="background:linear-gradient(90deg,#0dc9ee,#0d6dfb);border:none;color:#111827;font-weight:bold;">Registrar</button>
             </form>
         </div>
@@ -36,14 +52,10 @@
 import { useRegister } from './useRegister'
 
 const {
-    name,
-    email,
-    password,
-    password_confirmation,
-    showPassword,
-    showPasswordConfirm,
-    togglePassword,
-    togglePasswordConfirm,
-    register
+    name, email, password, password_confirmation,
+    showPassword, showPasswordConfirm,
+    togglePassword, togglePasswordConfirm,
+    register, isEmailValid, isPasswordValid
 } = useRegister()
 </script>
+
