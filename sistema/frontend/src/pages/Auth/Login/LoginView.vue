@@ -5,33 +5,37 @@
             <h2 class="text-center mb-4" style="color:#ffffff;">Entrar no FlowTask</h2>
 
             <form @submit.prevent="login">
-                <div class="mb-3">
+                <div class="mb-3 position-relative">
                     <label for="email" class="form-label text-white">E-mail</label>
-                    <input v-model="email" :class="{'is-invalid': email && !email.includes('@')}" type="email" class="form-control" id="email" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
-                    <div v-if="email && !isEmailValid" class="text-danger mt-1" style="font-size: 0.85rem;">
-                        O e-mail deve terminar com <strong>@flowtask.com</strong>
+                    <input v-model="email" type="email" id="email" required class="form-control pe-5"
+                           :style="{ backgroundColor: 'transparent', color: '#fff', border: email && !validaEmail ? '2px solid #28a745' : email && validaEmail ? '2px solid #dc3545' : '1px solid #0dc9ee' }"/>
+                    <span v-if="email" class="position-absolute" style="top: 38px; right: 12px;">
+                        <i v-if="!validaEmail" class="bi bi-check-circle-fill" style="color:#28a745;"></i>
+                        <i v-else class="bi bi-exclamation-circle-fill" style="color:#dc3545;"></i>
+                    </span>
+                    <div v-if="email && validaEmail" class="text-danger mt-1" style="font-size: 0.85rem;">
+                        {{ validaEmail }}
                     </div>
                 </div>
 
                 <div class="mb-4 position-relative">
                     <label for="password" class="form-label text-white">Senha</label>
-                    <input :type="showPassword ? 'text' : 'password'" v-model="password" class="form-control pe-4" id="password" required style="background-color:transparent;border:1px solid #0dc9ee;color:#fff;" />
-                    <span class="position-absolute" style="top: 38px; right: 12px; cursor: pointer;" @click="showPassword = !showPassword">
+                    <input :type="showPassword ? 'text' : 'password'" v-model="password" id="password" required class="form-control pe-5"
+                           :style="{ backgroundColor: 'transparent', color: '#fff', border: password && validaPassword.length === 0 ? '2px solid #28a745' : password && validaPassword.length > 0 ? '2px solid #dc3545' : '1px solid #0dc9ee' }"/>
+                    <span class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;" @click="showPassword = !showPassword">
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="font-size: 1.1rem; color: #ccc;"></i>
                     </span>
-                    <ul class="mt-2 text-danger" style="font-size: 0.8rem; padding-left: 18px;" v-if="password">
-                        <li v-if="password.length < 8">Mínimo de 8 caracteres</li>
-                        <li v-if="!/[A-Z]/.test(password)">Letra maiúscula</li>
-                        <li v-if="!/[a-z]/.test(password)">Letra minúscula</li>
-                        <li v-if="!/[0-9]/.test(password)">Número</li>
-                        <li v-if="!/[\W_]/.test(password)">Caractere especial</li>
+                    <span v-if="password" class="position-absolute" style="top: 38px; right: 12px;">
+                        <i v-if="validaPassword.length === 0" class="bi bi-check-circle-fill" style="color:#28a745;"></i>
+                        <i v-else class="bi bi-exclamation-circle-fill" style="color:#dc3545;"></i>
+                    </span>
+                    <ul class="mt-2 text-danger" style="font-size: 0.8rem; padding-left: 18px;" v-if="password && validaPassword.length">
+                        <li v-for="(erro, index) in validaPassword" :key="index">{{ erro }}</li>
                     </ul>
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <router-link to="/register" class="btn btn-outline-light" style="border-color:#0dc9ee;color:#0dc9ee;transition: all 0.3s ease;"
-                        onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';" >
+                    <router-link to="/register" class="btn btn-outline-light" style="border-color:#0dc9ee;color:#0dc9ee;transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';" onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';">
                         Criar Conta
                     </router-link>
                     <button type="submit" class="btn" style="background:linear-gradient(90deg,#0dc9ee,#0d6dfb);border:none;color:#111827;font-weight:bold;">
@@ -46,5 +50,12 @@
 <script lang="ts" setup>
 import { useLogin } from './useLogin'
 
-const { email, password, showPassword, login, isEmailValid } = useLogin()
+const {
+    email,
+    password,
+    showPassword,
+    login,
+    validaEmail,
+    validaPassword
+} = useLogin()
 </script>

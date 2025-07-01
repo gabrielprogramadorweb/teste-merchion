@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
 import web from '@/services/web'
@@ -11,75 +11,59 @@ export function useLogin() {
     const router = useRouter()
     const toast = useToast()
 
-    const isEmailValid = computed(() => {
-        const regex = /^[^\s@]+@flowtask\.com$/i
-        return regex.test(email.value)
+    const validaEmail = computed(() => {
+        if (!email.value) return 'O e-mail é obrigatório.'
+        if (!/^[^\s@]+@flowtask\.com$/i.test(email.value)) {
+            return 'O e-mail deve ser do tipo nome@flowtask.com'
+        }
+        return ''
     })
 
-    const isPasswordValid = computed(() => {
-        return (
-            password.value.length >= 8 &&
-            /[A-Z]/.test(password.value) &&
-            /[a-z]/.test(password.value) &&
-            /[0-9]/.test(password.value) &&
-            /[\W_]/.test(password.value)
-        )
+    const validaPassword = computed(() => {
+        const erros: string[] = []
+        if (!password.value) {
+            erros.push('A senha é obrigatória.')
+        } else {
+            if (password.value.length < 8) erros.push('Mínimo de 8 caracteres')
+            if (!/[A-Z]/.test(password.value)) erros.push('Letra maiúscula')
+            if (!/[a-z]/.test(password.value)) erros.push('Letra minúscula')
+            if (!/[0-9]/.test(password.value)) erros.push('Número')
+            if (!/[\W_]/.test(password.value)) erros.push('Caractere especial')
+        }
+        return erros
     })
 
     const login = async () => {
-        if (!isEmailValid.value) {
-            toast.warning('O e-mail deve ser do tipo nome@flowtask.com', {
-                timeout: 4000,
-                position: POSITION.TOP_RIGHT
-            })
+        if (validaEmail.value) {
+            toast.warning(validaEmail.value, { timeout: 4000, position: POSITION.TOP_RIGHT })
             return
         }
 
-        if (!isPasswordValid.value) {
-            toast.warning('A senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial.', {
-                timeout: 5000,
-                position: POSITION.TOP_RIGHT
-            })
+        if (validaPassword.value.length > 0) {
+            toast.warning('Corrija os erros de senha antes de continuar.', { timeout: 5000, position: POSITION.TOP_RIGHT })
             return
         }
 
         try {
-            await web.get('/sanctum/csrf-cookie', {
-                withCredentials: true
-            })
+            await web.get('/sanctum/csrf-cookie', { withCredentials: true })
 
             const response = await api.post('/login', {
                 email: email.value,
                 password: password.value
-            }, {
-                withCredentials: true
-            })
+            }, { withCredentials: true })
 
-            const token = response.data.token
-
-            const userData = {
-                id: response.data.user.id,
-                name: response.data.user.name,
-                email: response.data.user.email
-            }
-
+            const { token, user } = response.data
             localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(userData))
+            localStorage.setItem('user', JSON.stringify(user))
 
             router.push('/').then(() => window.location.reload())
         } catch (error: any) {
             const message = error?.response?.data?.message || 'Erro desconhecido'
 
             if (message.toLowerCase().includes('credenciais')) {
-                toast.error('E-mail ou senha incorretos.', {
-                    timeout: 5000,
-                    position: POSITION.TOP_RIGHT
-                })
+                toast.error('E-mail ou senha incorretos.', { timeout: 5000, position: POSITION.TOP_RIGHT })
             } else {
-                toast.error('Erro ao fazer login: ' + message, {
-                    timeout: 5000,
-                    position: POSITION.TOP_RIGHT
-                })
+                toast.error('Erro ao fazer login: ' + message, { timeout: 5000, position: POSITION.TOP_RIGHT })
             }
         }
     }
@@ -89,7 +73,7 @@ export function useLogin() {
         password,
         showPassword,
         login,
-        isEmailValid,
-        isPasswordValid
+        validaEmail,
+        validaPassword
     }
 }
