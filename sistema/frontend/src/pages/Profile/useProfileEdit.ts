@@ -3,6 +3,7 @@ import {Cropper} from 'vue-advanced-cropper';
 import {getUserProfile, updateUserProfile} from '@/services/userService';
 import {useToast} from 'vue-toastification';
 import web from '@/services/web';
+import { setupNavBar } from '@/components/NavBar/useNavbar';
 
 export function useProfileEdit() {
     const name = ref('');
@@ -16,6 +17,7 @@ export function useProfileEdit() {
     const showModal = ref(false);
     const cropper = ref<InstanceType<typeof Cropper> | null>(null);
 
+    const { userName, userAvatar } = setupNavBar();
     const avatarSrc = computed(() =>
         preview.value || (usuario.value?.avatar ? `${baseURL}/storage/${usuario.value.avatar}` : '/imagens/icon-user.png')
     );
@@ -70,10 +72,12 @@ export function useProfileEdit() {
 
         try {
             await updateUserProfile(form);
+            userName.value = name.value;
+            if (preview.value) {
+                userAvatar.value = preview.value;
+            }
+
             toast.success('Perfil atualizado com sucesso!');
-            setTimeout(() => {
-                window.location.reload();
-            }, 4000);
         } catch (e: any) {
             console.error('Erro ao atualizar perfil', e);
             if (e.response?.status === 422 && e.response?.data?.errors) {
