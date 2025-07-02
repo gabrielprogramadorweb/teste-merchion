@@ -1,4 +1,4 @@
-import {ref, nextTick} from 'vue'
+import { ref, nextTick } from 'vue'
 import axios from 'axios'
 
 export function useSuporteChat() {
@@ -7,12 +7,13 @@ export function useSuporteChat() {
     const mensagens = ref<{ texto: string; tipo: 'usuario' | 'ia' }[]>([])
     const carregando = ref(false)
     const chatBody = ref<HTMLElement | null>(null)
+    const mostrarEmojiPicker = ref(false)
 
     const enviar = async () => {
         const conteudo = mensagem.value.trim()
         if (!conteudo) return
 
-        mensagens.value.push({texto: conteudo, tipo: 'usuario'})
+        mensagens.value.push({ texto: conteudo, tipo: 'usuario' })
         mensagem.value = ''
         carregando.value = true
 
@@ -23,13 +24,13 @@ export function useSuporteChat() {
         })
 
         try {
-            const {data} = await axios.post('/api/suporte/responder', {mensagem: conteudo})
+            const { data } = await axios.post('/api/suporte/responder', { mensagem: conteudo })
             mensagens.value.push({
                 texto: formatarNegrito(data.resposta || 'Desculpe, não consegui responder agora.'),
                 tipo: 'ia'
             })
         } catch {
-            mensagens.value.push({texto: 'Erro ao se comunicar com a IA.', tipo: 'ia'})
+            mensagens.value.push({ texto: 'Erro ao se comunicar com a IA.', tipo: 'ia' })
         } finally {
             carregando.value = false
             await nextTick(() => {
@@ -38,6 +39,15 @@ export function useSuporteChat() {
                 }
             })
         }
+    }
+
+    function toggleEmojiPicker() {
+        mostrarEmojiPicker.value = !mostrarEmojiPicker.value
+    }
+
+    function adicionarEmoji(event: any) {
+        mensagem.value += event.detail.unicode
+        mostrarEmojiPicker.value = false
     }
 
     function formatarNegrito(texto: string) {
@@ -50,6 +60,9 @@ export function useSuporteChat() {
         mensagens,
         carregando,
         chatBody,
-        enviar
+        enviar,
+        mostrarEmojiPicker,
+        toggleEmojiPicker,
+        adicionarEmoji,
     }
 }

@@ -43,8 +43,15 @@
                     </div>
 
                     <div class="border-top p-2 d-flex align-items-center" style="background: #fff;">
-                        <button class="btn btn-link text-muted p-0 me-2"><i class="bi bi-emoji-smile"></i></button>
-                        <button class="btn btn-link text-muted p-0 me-2"><i class="bi bi-paperclip"></i></button>
+                        <button class="btn btn-link text-muted p-0 me-2" @click="toggleEmojiPicker">
+                            <i class="bi bi-emoji-smile"></i>
+                        </button>
+
+                        <transition name="modalDeEmojis">
+                            <div v-if="mostrarEmojiPicker" class="position-fixed bottom-0 end-0 m-3" style="z-index: 10001;">
+                                <emoji-picker @emoji-click="adicionarEmoji"></emoji-picker>
+                            </div>
+                        </transition>
                         <input v-model="mensagem" @keyup.enter="enviar" :disabled="carregando"
                                placeholder="Qual sua dúvida?" class="form-control border-0"
                                style="flex: 1; background: transparent;"/>
@@ -59,7 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import {useSuporteChat} from './useSuporte'
+import { useSuporteChat } from './useSuporte'
+import 'emoji-picker-element'
 
 const {
     abrirModal,
@@ -67,6 +75,10 @@ const {
     mensagens,
     carregando,
     chatBody,
-    enviar
+    enviar,
+    mostrarEmojiPicker,
+    toggleEmojiPicker,
+    adicionarEmoji
 } = useSuporteChat()
+
 </script>
