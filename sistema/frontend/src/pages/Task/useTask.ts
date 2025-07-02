@@ -1,10 +1,11 @@
 import {computed, ref} from 'vue';
-import { Task } from '@/models/Task';
-import { Comentario } from '@/models/Comentario';
+import {Task} from '@/models/Task';
+import {Comentario} from '@/models/Comentario';
 import * as taskService from '@/services/taskService';
 import * as comentarioService from '@/services/comentarioService';
 import * as bootstrap from 'bootstrap';
-import { useToast, POSITION } from 'vue-toastification'
+import {useToast, POSITION} from 'vue-toastification'
+
 const toast = useToast()
 export const tasks = ref<Task[]>([]);
 export const form = ref<Task>({
@@ -15,9 +16,9 @@ export const form = ref<Task>({
 });
 
 export const statusList = [
-    { value: 'pendente', label: 'Pendente', icon: 'bi-clock' },
-    { value: 'em_progresso', label: 'Em Progresso', icon: 'bi-tools' },
-    { value: 'completo', label: 'Completo', icon: 'bi-check-circle' }
+    {value: 'pendente', label: 'Pendente', icon: 'bi-clock'},
+    {value: 'em_progresso', label: 'Em Progresso', icon: 'bi-tools'},
+    {value: 'completo', label: 'Completo', icon: 'bi-check-circle'}
 ];
 
 export const idTaskParaExcluir = ref<number | null>(null);
@@ -27,12 +28,12 @@ export const novoComentario = ref<{ [taskId: number]: string }>({});
 export const comentarios = ref<Comentario[]>([]);
 
 export const carregarTasks = async () => {
-    const { data } = await taskService.getTasks();
+    const {data} = await taskService.getTasks();
     tasks.value = data;
 
     comentarios.value = [];
     for (const task of tasks.value) {
-        const { data: comentariosTask } = await comentarioService.getComentariosPorTask(task.id!);
+        const {data: comentariosTask} = await comentarioService.getComentariosPorTask(task.id!);
         comentarios.value.push(...comentariosTask);
     }
 };
@@ -58,7 +59,7 @@ export const salvarTask = async () => {
 }
 
 export const editarTask = (task: Task) => {
-    form.value = { ...task };
+    form.value = {...task};
     abrirModal();
 };
 
@@ -79,7 +80,7 @@ const fecharModal = () => {
 };
 
 const resetForm = () => {
-    form.value = { titulo: '', descricao: '', status: 'pendente', prioridade: 'normal' };
+    form.value = {titulo: '', descricao: '', status: 'pendente', prioridade: 'normal'};
 };
 
 export const tasksPorStatus = (status: string): Task[] => {
@@ -120,7 +121,7 @@ export const adicionarComentario = async (taskId: number) => {
     });
 
     novoComentario.value[taskId] = '';
-    const { data } = await comentarioService.getComentariosPorTask(taskId);
+    const {data} = await comentarioService.getComentariosPorTask(taskId);
     comentarios.value = [
         ...comentarios.value.filter(c => c.task_id !== taskId),
         ...data

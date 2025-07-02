@@ -1,6 +1,6 @@
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { getUserProfile } from '@/services/userService';
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+import {getUserProfile} from '@/services/userService';
 import web from '@/services/web';
 
 const userName = ref<string | null>(null);

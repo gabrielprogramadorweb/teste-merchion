@@ -1,8 +1,8 @@
-import { ref, computed } from 'vue'
+import {ref, computed} from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import {useRouter} from 'vue-router'
 import web from '@/services/web'
-import { useToast, POSITION } from 'vue-toastification'
+import {useToast, POSITION} from 'vue-toastification'
 
 export function useRegister() {
     const name = ref('')
@@ -62,29 +62,29 @@ export function useRegister() {
 
     const register = async () => {
         if (!name.value.trim()) {
-            toast.warning('O nome é obrigatório.', { timeout: 4000, position: POSITION.TOP_RIGHT })
+            toast.warning('O nome é obrigatório.', {timeout: 4000, position: POSITION.TOP_RIGHT})
             return
         }
 
         if (validaEmail.value) {
-            toast.warning(validaEmail.value, { timeout: 4000, position: POSITION.TOP_RIGHT })
+            toast.warning(validaEmail.value, {timeout: 4000, position: POSITION.TOP_RIGHT})
             return
         }
 
         if (validaPassword.value.length > 0) {
             validaPassword.value.forEach((erro) => {
-                toast.warning(erro, { timeout: 4000, position: POSITION.TOP_RIGHT })
+                toast.warning(erro, {timeout: 4000, position: POSITION.TOP_RIGHT})
             })
             return
         }
 
         if (validaConfirmacaoSenha.value) {
-            toast.warning(validaConfirmacaoSenha.value, { timeout: 4000, position: POSITION.TOP_RIGHT })
+            toast.warning(validaConfirmacaoSenha.value, {timeout: 4000, position: POSITION.TOP_RIGHT})
             return
         }
 
         try {
-            await web.get('/sanctum/csrf-cookie', { withCredentials: true })
+            await web.get('/sanctum/csrf-cookie', {withCredentials: true})
 
             const response = await axios.post('/api/register', {
                 name: name.value,
@@ -105,12 +105,12 @@ export function useRegister() {
                 const errors = error.response.data.errors
                 Object.values(errors).forEach((mensagens: any) => {
                     mensagens.forEach((msg: string) => {
-                        toast.error(msg, { timeout: 5000, position: POSITION.TOP_RIGHT })
+                        toast.error(msg, {timeout: 5000, position: POSITION.TOP_RIGHT})
                     })
                 })
             } else {
                 const msg = error?.response?.data?.message || 'Erro desconhecido'
-                toast.error('Erro ao registrar: ' + msg, { timeout: 5000, position: POSITION.TOP_RIGHT })
+                toast.error('Erro ao registrar: ' + msg, {timeout: 5000, position: POSITION.TOP_RIGHT})
             }
         }
     }

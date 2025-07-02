@@ -81,7 +81,7 @@
             try {
                 $task = Task::find($id);
 
-                if (!$task) {
+                if ( ! $task) {
                     return response()->json(['message' => 'Tarefa não encontrada.'], 404);
                 }
 

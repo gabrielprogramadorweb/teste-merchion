@@ -1,6 +1,7 @@
 <template>
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100 text-center">
-        <div class="card shadow p-4" style="max-width:500px;width:100%;background-color:transparent;border: 1px solid #0dc9ee;">
+        <div class="card shadow p-4"
+             style="max-width:500px;width:100%;background-color:transparent;border: 1px solid #0dc9ee;">
             <div class="mb-3">
                 <i class="bi bi-person-check-fill display-4" style="color:#0dc9ee;"></i>
             </div>

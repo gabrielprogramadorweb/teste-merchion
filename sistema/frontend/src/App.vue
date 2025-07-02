@@ -1,13 +1,13 @@
 <template>
     <div style="background-color:#111827">
-        <NavBar class="fixed" />
-        <router-view />
-        <SuporteChat />
+        <NavBar class="fixed"/>
+        <router-view/>
+        <SuporteChat/>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
 import NavBarView from '@/components/NavBar/NavBarView.vue'
 import Suporte from '@/components/Suporte/Suporte.vue'
 

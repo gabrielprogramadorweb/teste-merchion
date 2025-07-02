@@ -1,7 +1,7 @@
-import { ref, computed, onMounted } from 'vue';
-import { Cropper } from 'vue-advanced-cropper';
-import { getUserProfile, updateUserProfile } from '@/services/userService';
-import { useToast } from 'vue-toastification';
+import {ref, computed, onMounted} from 'vue';
+import {Cropper} from 'vue-advanced-cropper';
+import {getUserProfile, updateUserProfile} from '@/services/userService';
+import {useToast} from 'vue-toastification';
 import web from '@/services/web';
 
 export function useProfileEdit() {

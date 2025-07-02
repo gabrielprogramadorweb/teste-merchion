@@ -19,7 +19,7 @@
             try {
                 $credentials = $request->only('email', 'password');
 
-                if (!Auth::attempt($credentials)) {
+                if ( ! Auth::attempt($credentials)) {
                     return response()->json(['message' => 'Credenciais inválidas'], 401);
                 }
 
@@ -62,27 +62,30 @@
         {
             try {
                 $validator = Validator::make($request->all(), [
-                    'name'     => 'required|string|max:255',
-                    'email'    => 'required|email|unique:users,email',
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:users,email',
                     'password' => 'required|string|min:6|confirmed',
                 ]);
 
                 if ($validator->fails()) {
-                    return response()->json([ 'errors' => $validator->errors()], 422);
+                    return response()->json(['errors' => $validator->errors()], 422);
                 }
 
                 $user = User::create([
-                    'name'     => $request->input('name'),
-                    'email'    => $request->input('email'),
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
                     'password' => Hash::make($request->input('password')),
                 ]);
 
                 return response()->json([
                     'token' => $user->createToken('token')->plainTextToken,
-                    'user'  => $user,
+                    'user' => $user,
                 ], 201);
             } catch (\Throwable $e) {
-                Log::error('Erro no registro de usuário', ['erro' => $e->getMessage(),'linha' => $e->getLine(),'arquivo' => $e->getFile(),]);
+                Log::error(
+                    'Erro no registro de usuário',
+                    ['erro' => $e->getMessage(), 'linha' => $e->getLine(), 'arquivo' => $e->getFile(),]
+                );
                 return response()->json(['message' => $e->getMessage()], 500);
             }
         }
