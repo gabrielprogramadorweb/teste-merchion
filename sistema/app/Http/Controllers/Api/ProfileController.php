@@ -3,14 +3,16 @@
     namespace App\Http\Controllers\Api;
 
     use App\Http\Controllers\Controller;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Storage;
+    use App\Http\Requests\ProfileUpdateRequest;
+    use App\Services\ProfileService;
     use Illuminate\Http\JsonResponse;
+    use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Log;
 
     class ProfileController extends Controller
     {
+        public function __construct(protected ProfileService $service) {}
+
         public function edit(): JsonResponse
         {
             try {
@@ -21,31 +23,18 @@
             }
         }
 
-        public function update(Request $request): JsonResponse
+        public function update(ProfileUpdateRequest $request): JsonResponse
         {
             try {
-                $user = auth()->user();
-
-                $request->validate([
-                    'name' => 'required|string|max:255',
-                    'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-                ]);
-
-                $user->name = $request->name;
-
-                if ($request->hasFile('avatar')) {
-                    if ($user->avatar && Storage::exists($user->avatar)) {
-                        Storage::delete($user->avatar);
-                    }
-
-                    $user->avatar = $request->file('avatar')->store('avatars', 'public');
-                }
-
-                $user->save();
+                $this->service->atualizarPerfil(
+                    auth()->user(),
+                    $request->name,
+                    $request->file('avatar')
+                );
 
                 return response()->json([
                     'message' => 'Perfil atualizado com sucesso!',
-                    'user' => $user
+                    'user' => auth()->user()
                 ]);
             } catch (\Throwable $e) {
                 Log::error('Erro ao atualizar perfil: ' . $e->getMessage());
@@ -60,14 +49,7 @@
                     'password' => ['required', 'current_password'],
                 ]);
 
-                $user = $request->user();
-
-                Auth::logout();
-
-                $user->delete();
-
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+                $this->service->excluirConta($request->user(), $request);
 
                 return response()->json(['message' => 'Conta excluída com sucesso.']);
             } catch (\Throwable $e) {

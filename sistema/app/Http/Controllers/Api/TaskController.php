@@ -1,18 +1,21 @@
 <?php
-
     namespace App\Http\Controllers\Api;
 
     use App\Http\Controllers\Controller;
-    use App\Models\Task;
+    use App\Http\Requests\TaskRequest;
+    use App\Services\TaskService;
+    use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Log;
 
     class TaskController extends Controller
     {
-        public function index(Request $request)
+        public function __construct(protected TaskService $taskService) {}
+
+        public function index(Request $request): JsonResponse
         {
             try {
-                $tasks = Task::where('user_id', $request->user()->id)->get();
+                $tasks = $this->taskService->getUserTasks($request->user()->id);
                 return response()->json($tasks);
             } catch (\Throwable $e) {
                 Log::error('Erro ao listar tarefas: ' . $e->getMessage());
@@ -20,41 +23,10 @@
             }
         }
 
-        public function update(Request $request, $id)
+        public function store(TaskRequest $request): JsonResponse
         {
             try {
-                $task = Task::findOrFail($id);
-
-                $request->validate([
-                    'titulo' => 'required|string|max:255',
-                    'descricao' => 'nullable|string',
-                    'status' => 'required|in:pendente,em_progresso,completo',
-                    'prioridade' => 'nullable|string'
-                ]);
-
-                $task->update($request->all());
-
-                return response()->json(['message' => 'Tarefa atualizada com sucesso']);
-            } catch (\Throwable $e) {
-                Log::error("Erro ao atualizar tarefa {$id}: " . $e->getMessage());
-                return response()->json(['erro' => 'Erro ao atualizar a tarefa.'], 500);
-            }
-        }
-
-        public function store(Request $request)
-        {
-            try {
-                $data = $request->validate([
-                    'titulo' => 'required|string|max:255',
-                    'descricao' => 'nullable|string',
-                    'status' => 'required|in:pendente,em_progresso,completo',
-                    'prioridade' => 'nullable|string'
-                ]);
-
-                $data['user_id'] = auth()->id();
-
-                $task = Task::create($data);
-
+                $task = $this->taskService->createTask($request->validated(), $request->user()->id);
                 return response()->json($task, 201);
             } catch (\Throwable $e) {
                 Log::error('Erro ao criar tarefa: ' . $e->getMessage());
@@ -62,13 +34,21 @@
             }
         }
 
-        public function show($id, Request $request)
+        public function update(TaskRequest $request, int $id): JsonResponse
         {
             try {
-                $task = Task::where('id', $id)
-                    ->where('user_id', $request->user()->id)
-                    ->firstOrFail();
+                $this->taskService->updateTask($id, $request->validated());
+                return response()->json(['message' => 'Tarefa atualizada com sucesso']);
+            } catch (\Throwable $e) {
+                Log::error("Erro ao atualizar tarefa {$id}: " . $e->getMessage());
+                return response()->json(['erro' => 'Erro ao atualizar a tarefa.'], 500);
+            }
+        }
 
+        public function show(int $id, Request $request): JsonResponse
+        {
+            try {
+                $task = $this->taskService->getTaskByIdAndUser($id, $request->user()->id);
                 return response()->json($task);
             } catch (\Throwable $e) {
                 Log::error("Erro ao exibir tarefa {$id}: " . $e->getMessage());
@@ -76,17 +56,10 @@
             }
         }
 
-        public function destroy($id)
+        public function destroy(int $id): JsonResponse
         {
             try {
-                $task = Task::find($id);
-
-                if ( ! $task) {
-                    return response()->json(['message' => 'Tarefa não encontrada.'], 404);
-                }
-
-                $task->delete();
-
+                $this->taskService->deleteTask($id);
                 return response()->json(['message' => 'Tarefa deletada com sucesso.']);
             } catch (\Throwable $e) {
                 Log::error("Erro ao deletar tarefa {$id}: " . $e->getMessage());
