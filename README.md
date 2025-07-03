@@ -106,6 +106,7 @@ node -v
 ```
 #### . Subir frontend Vue.js no diretório /sistema/frontend
 ```
+npm run build
 npm run dev
 ```
 
