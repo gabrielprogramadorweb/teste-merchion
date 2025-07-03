@@ -1,54 +1,41 @@
 <?php
-
     namespace App\Http\Controllers\Api;
 
     use App\Http\Controllers\Controller;
-    use App\Models\TaskComentarios;
-    use Illuminate\Http\Request;
+    use App\Http\Requests\TaskComentarioRequest;
+    use App\Services\TaskComentarioService;
+    use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Log;
 
     class TaskComentariosController extends Controller
     {
-        public function index()
+        public function __construct(protected TaskComentarioService $service) {}
+
+        public function index(): JsonResponse
         {
             try {
-                return TaskComentarios::with('user')->orderBy('created_at', 'desc')->get();
+                return response()->json($this->service->getAll());
             } catch (\Throwable $e) {
                 Log::error('Erro ao listar comentários: ' . $e->getMessage());
                 return response()->json(['erro' => 'Erro ao buscar comentários.'], 500);
             }
         }
 
-        public function store(Request $request)
+        public function store(TaskComentarioRequest $request): JsonResponse
         {
             try {
-                $request->validate([
-                    'task_id' => 'required|exists:tasks,id',
-                    'comentario' => 'required|string|max:1000',
-                ]);
-
-                $comentario = TaskComentarios::create([
-                    'task_id' => $request->task_id,
-                    'comentario' => $request->comentario,
-                    'user_id' => auth()->id(),
-                ]);
-
-                return response()->json($comentario->load('user'), 201);
+                $comentario = $this->service->store($request->validated(), $request->user()->id);
+                return response()->json($comentario, 201);
             } catch (\Throwable $e) {
                 Log::error('Erro ao salvar comentário: ' . $e->getMessage());
                 return response()->json(['erro' => 'Erro ao salvar o comentário.'], 500);
             }
         }
 
-        public function getComentariosPorTask($id)
+        public function getComentariosPorTask(int $id): JsonResponse
         {
             try {
-                $comentarios = TaskComentarios::with('user')
-                    ->where('task_id', $id)
-                    ->orderBy('created_at', 'asc')
-                    ->get();
-
-                return response()->json($comentarios);
+                return response()->json($this->service->getByTaskId($id));
             } catch (\Throwable $e) {
                 Log::error("Erro ao buscar comentários da tarefa {$id}: " . $e->getMessage());
                 return response()->json(['erro' => 'Erro ao buscar comentários da tarefa.'], 500);
