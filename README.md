@@ -38,7 +38,7 @@ cp .env.example .env
 docker-compose up -d --build
 ```
 
-#### Composer
+#### . Composer
 
 ```
 docker compose exec php bash
@@ -57,7 +57,7 @@ php artisan key:generate
 ```
 npm install
 ```
-
+##
 #### ⚙️ Scripts Úteis (Executar via npm run)
 Estes scripts foram definidos no package.json para facilitar a execução de comandos frequentes no ambiente Docker + Laravel:
 
@@ -88,7 +88,7 @@ npm run php
 ```
 Abre um terminal dentro do container php, onde você pode executar comandos Artisan, Composer, etc.
 
-
+##
 #### . Instalar npm no frontend Vue.js no diretório /sistema/frontend
 ```
 cd frontend
@@ -100,7 +100,7 @@ npm install
 nvm use 18
 nvm alias default 18
 ```
-#### Node -version
+#### . Node -version
 ```
 node -v
 ```
@@ -110,7 +110,21 @@ npm run dev
 ```
 
 Após isso, acesse a rota [http://localhost:5173/](http://localhost:5173/)
-
+##
+#### . Para acessar o container do MySQL com phpMyAdmin
+[http://localhost:8888/](http://localhost:8888/)
+#### Credencias
+```
+Usuário: user
+Senha: password
+```
+ou
+```
+Usuário: root
+Senha: password
+```
+Base do projeto: FlowTask
+###
 #### . 🧩 Uso de .vue e .ts na mesma pasta
 Cada view (ex: LoginView.vue) possui um arquivo .ts correspondente (useLogin.ts) na mesma pasta. Essa abordagem:
 
@@ -123,7 +137,7 @@ Permite reutilizar código e testar com mais facilidade;
 Escala bem para projetos maiores, mantendo o código modular.
 
 Exemplo: pages/Auth/LoginView.vue usa pages/Auth/useLogin.ts para lidar com o formulário e requisição.
-
+##
 #### . Caso deseje testar as rotas da API, acesse o diretório collection e importe o arquivo teste-merchion.json no Postman ou Insomnia.
 
 Autenticação e Testes de Rotas Protegidas
