@@ -18,16 +18,22 @@
                          class="d-flex flex-column flex-lg-row align-items-center justify-content-end gap-3"
                          style="width: 100%;">
                         <template v-if="!userName">
-                            <router-link to="/login" class="btn btn-outline-light px-3 py-2 fw-semibold w-auto"
-                                         style="border: 1px solid #0dc9ee; color:#0dc9ee;">
+                            <router-link to="/login"
+                                         class="btn btn-outline-light px-3 py-2 fw-semibold w-auto"
+                                         style="border: 1px solid #0dc9ee; color:#0dc9ee; transition: all 0.3s ease;"
+                                         onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';"
+                                         onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';">
                                 <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
                             </router-link>
+
                             <router-link to="/register"
                                          class="btn btn-outline-light px-3 py-2 w-auto d-flex align-items-center justify-content-center"
-                                         style="border: 1px solid #0dc9ee; color:#0dc9ee;--bs-btn-hover-color: #fff; hover-border-color: #fff;">
-                                <i class="bi bi-person-plus-fill me-2"></i>
-                                Registrar
+                                         style="border: 1px solid #0dc9ee; color:#0dc9ee; transition: all 0.3s ease;"
+                                         onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';"
+                                         onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';">
+                                <i class="bi bi-person-plus-fill me-2"></i> Registrar
                             </router-link>
+
                         </template>
 
                         <template v-else>
