@@ -86,8 +86,12 @@ Para quando quiser derrubar e subir todos os containers do Docker novamente (por
 ```
 npm run php
 ```
-Abre um terminal dentro do container php, onde você pode executar comandos Artisan, Composer, etc.
+Dentro do Container php, execute o comando:
+```
+php artisan storage:link
 
+```
+Esse comando cria um atalho entre as pastas, permitindo acessar arquivos públicos (como imagens e uploads) pelo navegador, via a URL /storage.
 ##
 #### . Instalar npm no frontend Vue.js no diretório /sistema/frontend
 ```
