@@ -38,7 +38,10 @@
 
                         <template v-else>
                             <router-link to="/tasks"
-                                         class="btn btn-outline-info fw-semibold px-3 py-2 d-flex align-items-center w-auto">
+                                         class="btn btn-outline-info fw-semibold px-3 py-2 d-flex align-items-center w-auto"
+                                         style="border: 1px solid #0dc9ee; color:#0dc9ee; transition: all 0.3s ease;"
+                                         onmouseover="this.style.background='linear-gradient(90deg,#0dc9ee,#0d6dfb)'; this.style.color='#111827'; this.style.fontWeight='bold'; this.style.border='none';"
+                                         onmouseout="this.style.background='transparent'; this.style.color='#0dc9ee'; this.style.fontWeight='normal'; this.style.border='1px solid #0dc9ee';">
                                 <i class="bi bi-list-check me-2" style="height:28px;"></i> Minhas Tarefas
                             </router-link>
 
