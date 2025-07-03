@@ -123,7 +123,7 @@ ou
 Usuário: root
 Senha: password
 ```
-Base do projeto: FlowTask
+Base do projeto: flowtask
 ###
 #### . 🧩 Uso de .vue e .ts na mesma pasta
 Cada view (ex: LoginView.vue) possui um arquivo .ts correspondente (useLogin.ts) na mesma pasta. Essa abordagem:
