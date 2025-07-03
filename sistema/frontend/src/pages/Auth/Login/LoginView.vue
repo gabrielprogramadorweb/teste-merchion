@@ -25,9 +25,11 @@
                     <input :type="showPassword ? 'text' : 'password'" v-model="password" id="password" required
                            class="form-control pe-5"
                            :style="{ backgroundColor: 'transparent', color: '#fff', border: password && validaPassword.length === 0 ? '2px solid #28a745' : password && validaPassword.length > 0 ? '2px solid #dc3545' : '1px solid #0dc9ee' }"/>
-                    <span class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;"
+                    <span v-if="password"
+                          class="position-absolute"
+                          style="top: 38px; right: 40px; cursor: pointer;"
                           @click="showPassword = !showPassword">
-                        <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                             <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
                            style="font-size: 1.1rem; color: #ccc;"></i>
                     </span>
                     <span v-if="password" class="position-absolute" style="top: 38px; right: 12px;">

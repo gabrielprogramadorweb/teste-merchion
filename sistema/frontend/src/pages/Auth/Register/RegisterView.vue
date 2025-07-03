@@ -38,14 +38,17 @@
                     <input :type="showPassword ? 'text' : 'password'" id="password" v-model="password"
                            @blur="senhaTocada = true" class="form-control pe-5"
                            :style="{ backgroundColor: 'transparent', color: '#fff', border: senhaTocada && senhaValida ? '2px solid #28a745' : senhaTocada && !senhaValida ? '2px solid #dc3545' : '1px solid #0dc9ee' }"/>
-                    <span class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;"
+
+                    <span v-if="password" class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;"
                           @click="togglePassword">
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" style="color: #ccc;"></i>
                     </span>
-                    <span v-if="senhaTocada" class="position-absolute" style="top: 38px; right: 12px;">
+
+                     <span v-if="senhaTocada" class="position-absolute" style="top: 38px; right: 12px;">
                         <i v-if="senhaValida" class="bi bi-check-circle-fill" style="color: #28a745;"></i>
                         <i v-else class="bi bi-exclamation-circle-fill" style="color: #dc3545;"></i>
                     </span>
+
                     <div v-if="senhaValida" class="text-success small mt-1">Senha válida.</div>
                     <ul class="mt-2 text-danger small" v-else-if="senhaTocada && validaPassword.length">
                         <li v-for="(erro, i) in validaPassword" :key="i">{{ erro }}</li>
@@ -57,14 +60,17 @@
                     <input :type="showPasswordConfirm ? 'text' : 'password'" id="password_confirmation"
                            v-model="password_confirmation" @blur="confirmacaoTocada = true" class="form-control pe-5"
                            :style="{ backgroundColor: 'transparent', color: '#fff', border: confirmacaoTocada && confirmacaoValida ? '2px solid #28a745' : confirmacaoTocada && !confirmacaoValida ? '2px solid #dc3545' : '1px solid #0dc9ee' }"/>
-                    <span class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;"
+
+                    <span v-if="password_confirmation" class="position-absolute" style="top: 38px; right: 40px; cursor: pointer;"
                           @click="togglePasswordConfirm">
-                        <i :class="showPasswordConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'" style="color: #ccc;"></i>
-                    </span>
-                    <span v-if="confirmacaoTocada" class="position-absolute" style="top: 38px; right: 12px;">
-                        <i v-if="confirmacaoValida" class="bi bi-check-circle-fill" style="color: #28a745;"></i>
-                        <i v-else class="bi bi-exclamation-circle-fill" style="color: #dc3545;"></i>
-                    </span>
+                            <i :class="showPasswordConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'" style="color: #ccc;"></i>
+                        </span>
+
+                        <span v-if="confirmacaoTocada" class="position-absolute" style="top: 38px; right: 12px;">
+                            <i v-if="confirmacaoValida" class="bi bi-check-circle-fill" style="color: #28a745;"></i>
+                            <i v-else class="bi bi-exclamation-circle-fill" style="color: #dc3545;"></i>
+                        </span>
+
                     <div v-if="confirmacaoValida" class="text-success small mt-1">Confirmação válida.</div>
                     <div v-else-if="confirmacaoTocada && validaConfirmacaoSenha" class="text-danger small mt-1">
                         {{ validaConfirmacaoSenha }}
