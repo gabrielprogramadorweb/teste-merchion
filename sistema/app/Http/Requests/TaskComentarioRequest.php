@@ -1,10 +1,9 @@
 <?php
-
     namespace App\Http\Requests;
 
     use Illuminate\Foundation\Http\FormRequest;
 
-    class ProfileUpdateRequest extends FormRequest
+    class TaskComentarioRequest extends FormRequest
     {
         public function authorize(): bool
         {
@@ -14,9 +13,8 @@
         public function rules(): array
         {
             return [
-                'name' => 'required|string|max:255',
-                'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'task_id' => 'required|exists:tasks,id',
+                'comentario' => 'required|string|max:1000',
             ];
         }
     }
-

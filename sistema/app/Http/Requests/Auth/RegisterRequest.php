@@ -1,10 +1,9 @@
 <?php
-
-    namespace App\Http\Requests;
+    namespace App\Http\Requests\Auth;
 
     use Illuminate\Foundation\Http\FormRequest;
 
-    class ProfileUpdateRequest extends FormRequest
+    class RegisterRequest extends FormRequest
     {
         public function authorize(): bool
         {
@@ -15,8 +14,8 @@
         {
             return [
                 'name' => 'required|string|max:255',
-                'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|min:6|confirmed',
             ];
         }
     }
-
